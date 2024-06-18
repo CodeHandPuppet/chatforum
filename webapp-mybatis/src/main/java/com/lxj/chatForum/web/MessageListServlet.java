@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/message/getFriendMessageList","/message/getOneMessageArr","/chat/getFriends","/message/send","/friends/add","/friends/editAppellation"})
+//@WebServlet({"/message/getFriendMessageList","/message/getOneMessageArr","/chat/getFriends","/message/send","/friends/add","/friends/editAppellation"})
 public class MessageListServlet extends HttpServlet {
 
     MessageListService messageListService=new MessageListServiceImpl();

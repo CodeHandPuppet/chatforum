@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/forumLike/add","/forumLike/remove","/forumLike/getArr","/forumCollect/add","/forumCollect/remove","/forumCollect/getArr"})
+//@WebServlet({"/forumLike/add","/forumLike/remove","/forumLike/getArr","/forumCollect/add","/forumCollect/remove","/forumCollect/getArr"})
 public class ForumLikeOrCollectServlet extends HttpServlet {
     ForumLikeOrCollectService forumLikeOrCollectService=new ForumLikeOrCollectServiceImpl();
     @Override

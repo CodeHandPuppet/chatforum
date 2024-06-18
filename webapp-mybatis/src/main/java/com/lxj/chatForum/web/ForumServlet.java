@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/forum/getAllArticle","/forum/getArticleBySortId","/forum/getArticleByUid",
-        "/forum/edit","/forum/send","/forum/deleteById","/forum/getOneArticle","/forum/getForumsByLikesAndCollect"})
+//@WebServlet({"/forum/getAllArticle","/forum/getArticleBySortId","/forum/getArticleByUid",
+//        "/forum/edit","/forum/send","/forum/deleteById","/forum/getOneArticle","/forum/getForumsByLikesAndCollect"})
 public class ForumServlet extends HttpServlet {
 
     ForumService forumService=new ForumServiceImpl();

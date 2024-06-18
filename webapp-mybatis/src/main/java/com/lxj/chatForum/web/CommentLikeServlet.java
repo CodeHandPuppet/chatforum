@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-@WebServlet({"/commentLike/getLikes","/commentLike/toLike","/commentLike/delete"})
+//@WebServlet({"/commentLike/getLikes","/commentLike/toLike","/commentLike/delete"})
 public class CommentLikeServlet  extends HttpServlet {
 
     CommentLikeService commentLikeService=new CommentLikeServiceImpl();

@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet({"/user/login","/user/getInfo","/user/getInfoByUid","/user/getAllUser","/user/add","/user/edit","/user/editPassword"})
+//@WebServlet({"/user/login","/user/getInfo","/user/getInfoByUid","/user/getAllUser","/user/add","/user/edit","/user/editPassword"})
 public class UserServlet extends HttpServlet {
 
     UserServiceImpl userService=new UserServiceImpl();

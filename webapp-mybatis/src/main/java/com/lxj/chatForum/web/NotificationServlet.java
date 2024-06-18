@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/notification/getAdminNot","/notification/getFriendNot","/notification/delFriendNot"
-        ,"/notification/addFriendNot","/notification/removeAdminNot","/notification/addAdminNot","/notification/editAdminNot"})
+//@WebServlet({"/notification/getAdminNot","/notification/getFriendNot","/notification/delFriendNot"
+//        ,"/notification/addFriendNot","/notification/removeAdminNot","/notification/addAdminNot","/notification/editAdminNot"})
 public class NotificationServlet extends HttpServlet {
 
     NotificationService notificationService=new NotificationServiceImpl();

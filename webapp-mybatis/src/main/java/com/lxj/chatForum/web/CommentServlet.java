@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/comment/getComments","/comment/save","/comment/deleteById"})
+//@WebServlet({"/comment/getComments","/comment/save","/comment/deleteById"})
 public class CommentServlet extends HttpServlet {
 
     CommentService commentService=new CommentServiceImpl();

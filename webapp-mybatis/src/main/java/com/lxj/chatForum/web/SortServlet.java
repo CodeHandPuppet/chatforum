@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet({"/sort/getAllSorts","/sort/add","/sort/edit","/sort/delete"})
+//@WebServlet({"/sort/getAllSorts","/sort/add","/sort/edit","/sort/delete"})
 public class SortServlet extends HttpServlet {
 
     SortService sortService=new SortServiceImpl();

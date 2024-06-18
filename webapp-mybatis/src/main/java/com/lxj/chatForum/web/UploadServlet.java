@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@WebServlet({"/upload/image"})
+//@WebServlet({"/upload/image"})
 @MultipartConfig
 public class UploadServlet extends HttpServlet {
     @Override

@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-@WebServlet({"/address/getAllAddress","/address/add","/address/edit"})
+//@WebServlet({"/address/getAllAddress","/address/add","/address/edit"})
 public class AddressServlet extends HttpServlet {
 
 
