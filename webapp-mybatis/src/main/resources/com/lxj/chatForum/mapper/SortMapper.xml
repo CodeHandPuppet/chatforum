@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxj.chatForum.mapper.SortMapper">
+
+
+        <!--获取全部分类-->
+        <select id="getAllSort" resultType="sortPojo">
+            select * from sort order by create_time DESC
+        </select>
+
+        <!--插入某个分类-->
+        <insert id="insert" >
+            insert into sort(sortName,intor,uid,isLook) values (#{sortName},#{intor},#{uid},#{isLook})
+        </insert>
+
+        <!--更新某个分类-->
+        <update id="update">
+            update sort set sortName=#{sortName},intor=#{intor},uid=#{uid},isLook=#{isLook} where id = #{id}
+        </update>
+
+        <!-- 删除某个分类-->
+        <delete id="deleteById">
+            delete from sort where id=#{id}
+        </delete>
+
+        <!--根据id获取分类-->
+        <select id="getSortById" resultType="sortPojo">
+        select id,sortName,isLook from sort where id=#{id}
+        </select>
+</mapper>

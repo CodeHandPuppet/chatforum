@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxj.chatForum.mapper.CommentMapper">
+
+
+
+
+    <resultMap id="commentInfo" type="commentPojo">
+        <result property="id" column="id" />
+        <result property="uid" column="uid" />
+        <result property="parentId" column="parentId" />
+        <result property="content" column="content" />
+        <result property="likes" column="likes" />
+        <result property="contentImg" column="contentImg" />
+        <result property="createTime" column="createTime" />
+        <result property="address" column="address" />
+        <association property="user" javaType="userPojo">
+            <result property="username"  column="username" />
+            <result property="avatar" column="avatar" />
+            <result property="homeLink" column="homeLink" />
+            <result property="level" column="level" />
+        </association>
+    </resultMap>
+<!--    //    通过文章获取对应的全部评论-->
+<!--    List<CommentPojo> getCommentsByForumId(String forumId);-->
+        <select id="getCommentsByForumId"  resultMap="commentInfo">
+            SELECT
+                    c.id AS id,
+                    c.uid AS uid,
+                    c.parent_id AS parentId,
+                    c.content AS content,
+                    c.likes AS likes,
+                    c.content_img AS contentImg,
+                    c.create_time AS createTime,
+                    u.address AS address,
+                    u.nickname AS username,
+                    u.avatar AS avatar,
+                    u.level AS level,
+                    (concat('/userHome?id=',u.id)) AS homeLink
+            FROM
+                comment c JOIN
+            user u ON c.uid = u.id
+            WHERE
+                c.forum_id = #{id} order by createTime desc
+        </select>
+<!--    //插入-->
+<!--    int insertReturnId(CommentPojo comment);-->
+        <insert id="insertReturnId" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+
+            insert into
+                comment
+                (
+                 uid,forum_id,content
+                 <if test="parentId != null">
+                       ,parent_id
+                 </if>
+                )
+            values
+                (
+                    #{uid},#{forumId},#{content}
+                    <if test="parentId != null">
+                        ,#{parentId}
+                    </if>
+                )
+        </insert>
+<!--    //根据id删除评论-->
+<!--    int deleteById(String id, String parentId);-->
+    <delete id="deleteById">
+        delete from comment where id=#{id}
+        <trim prefix="or" >
+            <if test="parentId == null">
+                parent_id=#{id}
+            </if>
+        </trim>
+    </delete>
+<!--    <delete id="deleteByParentId">-->
+<!--        delete from comment where forum_id=#{forumId}-->
+<!--    </delete>-->
+</mapper>

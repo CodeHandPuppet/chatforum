@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lxj.chatForum.mapper.CommentLikeMapper">
+
+    <!--    //获取评论的id  通过喜欢表的 uid-->
+    <select id="getCommentIdByForumIdAndUid" resultType="int">
+        select comment_id as commentId from comment_like where uid=#{uid}
+    </select>
+
+    <!--    //删除某一个喜欢值   通过  uid 和 commentId-->
+    <delete id="deleteByUidAndCommentId">
+        delete from comment_like where uid=#{uid} and comment_id=#{commentId}
+    </delete>
+
+    <!--    //插入-->
+    <insert id="insertByUidAndCommentId">
+        insert into comment_like(uid,comment_id) values (#{uid},#{commentId})
+    </insert>
+
+</mapper>
