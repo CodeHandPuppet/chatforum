@@ -25,36 +25,25 @@ public class ForumServiceImpl implements ForumService {
     @Resource
     ForumMapper forumMapper;
     @Override
-    public String getAllArticle() {
-        Gson gson=new GsonBuilder().create();
+    public List<ForumPojo> getAllArticle() {
+
         List<ForumPojo> forumPojoList=forumMapper.getAllForum();
-        if(forumPojoList == null){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success(forumPojoList));
+        return forumPojoList;
     }
 
     @Override
-    public String getArticleBySortId(String json) {
-        Gson gson=new GsonBuilder().create();
-        Type type = new TypeToken<HashMap<String,String>>() {}.getType();
-        Map<String,String> jsonMap = gson.fromJson(json, type);
-        String sortId = jsonMap.get("sortId");
+    public  List<ForumPojo> getArticleBySortId(String sortId) {
+
 
         List<ForumPojo> forumPojoList=forumMapper.getForumBySortId(sortId);
-        if(forumPojoList == null){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success(forumPojoList));
+       return forumPojoList;
     }
 
     @Override
-    public String getArticleByUid(String json) {
-        Gson gson=new GsonBuilder().create();
-        Type typeC = new TypeToken<HashMap<String,String>>() {}.getType();
-        Map<String,String> jsonMap = gson.fromJson(json, typeC);
-        String uid = jsonMap.get("uid");
-        String type=jsonMap.get("type");
+    public  List<ForumPojo> getArticleByUid(HashMap<String ,String> map) {
+
+        String uid = map.get("uid");
+        String type=map.get("type");
         List<ForumPojo> forumPojoList=null;
         if(type.equals("All")){
                 forumPojoList=forumMapper.getAllForumByUid(uid);
@@ -66,75 +55,48 @@ public class ForumServiceImpl implements ForumService {
             forumPojoList=forumMapper.getCollectForum(uid);
         }
 
-        if(forumPojoList == null){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success(forumPojoList));
+       return forumPojoList;
     }
 
     @Override
-    public String getOneArticle(String json) {
-        Gson gson=new GsonBuilder().create();
-        Type type = new TypeToken<HashMap<String,String>>() {}.getType();
-        Map<String,String> jsonMap = gson.fromJson(json, type);
-        String forumId = jsonMap.get("forumId");
+    public ForumPojo getOneArticle(String forumId) {
 
-        ForumPojo forumPojoList=forumMapper.getForumById(forumId);
 
-        if(forumPojoList == null){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success(forumPojoList));
+
+        ForumPojo forum=forumMapper.getForumById(forumId);
+
+        return forum;
+
     }
 
     @Override
-    public String toSend(String json) {
-        Gson gson=new GsonBuilder().create();
-        ForumPojo forum = gson.fromJson(json, ForumPojo.class);
+    public void toSend(ForumPojo forum) {
         int count=forumMapper.addForum(forum);
 
-        if(count == 0){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success("ok"));
     }
 
     @Override
-    public String toEdit(String json) {
-        Gson gson=new GsonBuilder().create();
-        ForumPojo forum = gson.fromJson(json, ForumPojo.class);
+    public void toEdit(ForumPojo forum) {
+
         System.out.println(forum.getTitle());
         int count=forumMapper.updateForum(forum);
 
-        if(count == 0){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success("ok"));
     }
 
     @Override
-    public String toDelete(String json) {
-        Gson gson=new GsonBuilder().create();
-        Type typeC = new TypeToken<HashMap<String,String>>() {}.getType();
-        Map<String,String> jsonMap = gson.fromJson(json, typeC);
-        String id=jsonMap.get("id");
+    public void toDelete(String id) {
+
         int count=forumMapper.deleteForumById(id);
 
-        if(count == -1){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success("ok"));
+
     }
 
     @Override
-    public String toGetForumsByLikesAndCollect() {
+    public List<ForumPojo> toGetForumsByLikesAndCollect() {
 
-        Gson gson=new GsonBuilder().create();
         List<ForumPojo> forumPojoList=forumMapper.getForumsByLikesAndCollect();
-        if(forumPojoList == null){
-            return gson.toJson(ReturnData.error(null));
-        }
-        return gson.toJson(ReturnData.success(forumPojoList));
+
+        return forumPojoList;
 
     }
 }

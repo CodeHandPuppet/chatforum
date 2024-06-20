@@ -1,9 +1,13 @@
 package com.lxj.chatForum.service;
 
+import com.lxj.chatForum.pojo.CommentPojo;
+
+import java.util.List;
+
 public interface CommentService {
-    String getComments(String json);
+    List<CommentPojo> getComments(String forumId);
 
-    String getSave(String json);
+    int getSave(CommentPojo comment);
 
-    String toDelete(String json);
+    void toDelete(CommentPojo comment);
 }

@@ -20,11 +20,11 @@ public class ResponseResult {
         this.data = data;
     }
 
-    public static ReturnData success(Object data){
-        return new ReturnData(200,"ok",data);
+    public static ResponseResult success(Object data){
+        return new ResponseResult(200,"ok",data);
     }
 
-    public static ReturnData error(Object data){
-        return new ReturnData(201,"error",data);
+    public static ResponseResult error(Object data){
+        return new ResponseResult(201,"error",data);
     }
 }

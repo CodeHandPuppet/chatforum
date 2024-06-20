@@ -12,12 +12,12 @@
 
         <!--插入某个分类-->
         <insert id="insert" >
-            insert into sort(sortName,intor,uid,isLook) values (#{sortName},#{intor},#{uid},#{isLook})
+            insert into sort(sortName,intro,uid,isLook) values (#{sortName},#{intro},#{uid},#{isLook})
         </insert>
 
         <!--更新某个分类-->
         <update id="update">
-            update sort set sortName=#{sortName},intor=#{intor},uid=#{uid},isLook=#{isLook} where id = #{id}
+            update sort set sortName=#{sortName},intro=#{intro},uid=#{uid},isLook=#{isLook} where id = #{id}
         </update>
 
         <!-- 删除某个分类-->

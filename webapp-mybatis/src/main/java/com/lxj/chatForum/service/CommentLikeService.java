@@ -1,7 +1,17 @@
 package com.lxj.chatForum.service;
 
+import com.lxj.chatForum.pojo.CommentLikePojo;
+import com.lxj.chatForum.pojo.CommentPojo;
+
+import java.util.List;
+
 public interface CommentLikeService {
-    String getLikeArr(String json);
-    String addCommentLike(String json);
-    String deleteCommentLike(String json);
+
+    List<Integer> getLikeArr(String uid);
+
+
+    void addCommentLike(CommentLikePojo commentLike);
+
+
+    void  deleteCommentLike(CommentLikePojo commentLike);
 }

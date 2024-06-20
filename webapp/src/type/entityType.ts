@@ -1,76 +1,85 @@
+
+
+
 // forum 文章
-export interface ForumData {
+export interface ForumEntity {
     id?: string | number;
     uid?: string | number;
     title?: string;
     content: string;
-    intor?: string;
+    intro?: string;
     sortId?: string | number;
     img?: string;
     likes?: string | number;
     collect?: string | number;
-    create_time?: string;
-    update_time?: string;
+    createTime?: number
+    updateTime?: number
+
+
+
+    sort?: SortEntity;
+    user?: UserEntity;
+
 }
 
 // forum_collect 文章的收藏表
-export interface ForumCollectData {
+export interface ForumCollectEntity {
     id: string | number;
-    forum_id: string | number;
-    user_id: string | number;
-    create_time?: string;
-    update_time?: string;
+    forumId: string | number;
+    userId: string | number;
+    createTime?: string;
+    updateTime?: string;
 }
 
 // forum_like 文章的喜欢表
-export interface ForumLikeData {
+export interface ForumLikeEntity {
     id: string | number;
-    forum_id: string;
+    forumId: string;
     uid: string;
-    create_time?: string;
-    update_time?: string;
+    createTime?: string;
+    updateTime?: string;
 }
 
 // sort 分类
-export interface SortData {
+export interface SortEntity {
     id?: string | number;
     sortName?: string;
-    intor?: string;
+    intro?: string;
     isLook?: boolean;
-    create_time?: string;
-    update_time?: string;
+    createTime?: string;
+    updateTime?: string;
     uid?: string | number;
 }
 
 // group 群的基本信息
-export interface GroupData {
+export interface GroupEntity {
     id: string | number;
-    group_name: string;
+    groupName: string;
     uid: string;
     avatar: string;
     signature: string;
-    create_time?: string;
-    update_time?: string;
+    createTime?: string;
+    updateTime?: string;
 }
 
 // groupMessage 群内部消息
-export interface GroupMessageData {
+export interface GroupMessageEntity {
     id: string | number;
-    sender_id: string;
-    group_id: string;
+    senderId: string;
+    groupId: string;
     content: string;
     sendTime: string;
-    content_img?: string;
+    contentImg?: string;
 }
 
 // group_member 群成员
-export interface GroupMemberData {
+export interface GroupMemberEntity {
     id: string | number;
-    group_id: string;
+    groupId: string;
     uid: string;
-    group_nickname?: string;
-    group_avatar?: string;
-    join_time?: string;
+    groupNickname?: string;
+    groupAvatar?: string;
+    joinTime?: string;
 }
 
 /*
@@ -78,7 +87,7 @@ export interface GroupMemberData {
  */
 // user 用户
 
-export interface UserData {
+export interface UserEntity {
     id: string | number;
     username: string;
     nickname: string;
@@ -89,46 +98,48 @@ export interface UserData {
     type: string;
     token?: string;
     level?: number;
-    create_time?: string;
-    update_time?: string;
+    createTime?: string;
+    updateTime?: string;
     likes?: number;
-    forum_number?: number;
+    forumNumber?: number;
     collect?: number;
     homeLink?: string;
 
 
-
-
-
-
-
 }
+
 
 // UserMessage 用户消息
-export interface UserMessageData {
+export interface UserMessageEntity {
     id?: string | number;
     uid: string;
-    receiver_id?: string;
+    receiverId?: string;
     content: string;
-    send_time?: string;
+    sendTime?: string;
 }
+
 
 // friendsList 好友列表
-export interface FriendsListData {
+export interface FriendsListEntity {
     id: string;
     uid: string;
-    friend_id: string;
+    friendId: string;
     appellation: string;
-    create_time?: string;
+    createTime?: string;
 }
+
+
+
 
 // websiteInfo 网站基本信息
-export interface WebsiteInfoData {
-    // Define the structure of website information here
+export interface WebsiteInfoEntity {
+
 }
 
+
+
 // comment 评论
-export interface CommentData {
+export interface CommentEntity {
     id?: string | number;
     forumId: string | number;
     uid: string | number;
@@ -140,33 +151,39 @@ export interface CommentData {
     address?: string;
 }
 
+
+
 // comment_like 评论的喜欢表
-export interface CommentLikeData {
+export interface CommentLikeEntity {
     id: string | number;
     uid: string;
     comment_id: string;
-    send_time?: string;
-    update_time?: string;
+    sendTime?: string;
+    updateTime?: string;
 }
 
+
+
 // address 地址
-export interface AddressData {
+export interface AddressEntity {
     id?: string | number;
     name: string;
-    intor: string;
-    address_img?: string;
+    intro: string;
+    addressImg?: string;
     content?: string;
     createTime?: string;
     isLook?: boolean;
 }
 
-export interface NotificationData {
+
+
+export interface NotificationEntity {
     id?: number | string;
     type?: "AllPeople" | "AddFriend" | "Message";
     content?: string;
-    sender_id?: string | number;
-    receiver_id?: string | number;
-    create_time?: string;
-    update_time?: string;
+    senderId?: string | number;
+    receiverId?: string | number;
+    createTime?: string;
+    updateTime?: string;
     isLook?: boolean;
 }

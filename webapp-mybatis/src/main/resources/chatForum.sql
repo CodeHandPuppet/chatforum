@@ -17,16 +17,16 @@ create table user(
     likes INTEGER default 0,    #获赞数
     collect INTEGER default 0,  #被收藏数
     forum_number INTEGER default 0,   #发表的文章数
-    homeLink varchar(50) default '/userHome?id='
+    home_link varchar(50) default '/userHome?id='
 );
 
 
 create table sort(
     id INTEGER primary key AUTO_INCREMENT,
     uid INTEGER not null ,
-    sortName varchar(100) not null ,
-    intor varchar(200),
-    isLook boolean default false,
+    sort_name varchar(100) not null ,
+    intro varchar(200),
+    is_look boolean default false,
     create_time datetime default current_timestamp,
     update_time datetime,
     foreign key (uid) references user(id)
@@ -41,12 +41,12 @@ create table forum(
     update_time datetime,
     title varchar(50) not null ,
     content text not null ,
-    intor varchar(200) default '没有简介' ,
+    intro varchar(200) default '没有简介' ,
     img varchar(500),
-    sortId INTEGER not null ,
+    sort_id INTEGER not null ,
     likes INTEGER default 0,
     collect INTEGER default 0,
-    foreign key (sortId) references sort(id)
+    foreign key (sort_id) references sort(id)
 );
 
 
@@ -77,7 +77,7 @@ create table forum_like(
 
 
 
-create table UserMessage(
+create table user_message(
     id INTEGER primary key AUTO_INCREMENT,
     uid INTEGER not null ,
     receiver_id INTEGER not null ,
@@ -88,7 +88,7 @@ create table UserMessage(
 );
 
 
-create table friendsList(
+create table friends_list(
     id INTEGER primary key AUTO_INCREMENT,
     uid INTEGER not null ,
     friend_id INTEGER not null ,
@@ -129,7 +129,7 @@ create table address(
     id INTEGER primary key AUTO_INCREMENT,
     name varchar(40) not null ,
     create_time datetime default current_timestamp,
-    intor varchar(300),   #简介
+    intro varchar(300),   #简介
     address_img varchar(500),
     content varchar(2000)  #内容
 );
@@ -140,7 +140,7 @@ CREATE TRIGGER insert_into_user
     FOR EACH ROW
 BEGIN
     set new.token =UUID();
-    SET new.homeLink = CONCAT('/userHome?id=',NEW.id);
+    SET new.home_link = CONCAT('/userHome?id=',NEW.id);
 END;
 
 
@@ -250,70 +250,70 @@ insert into user(id,username, nickname, password, avatar, signature, type, level
 
 
 
-insert into address(name, intor, address_img, content)
+insert into address(name, intro, address_img, content)
        values('信息工程学院','信息工程学院的简介','src/main/webapp/addressPictures/许昌学院.jpg','信息工程学院的内容');
-insert into address(name, intor, address_img, content)
+insert into address(name, intro, address_img, content)
        values('土木工程学院','土木工程学院的简介','src/main/webapp/addressPictures/郑州大学.jpg','土木工程学院的内容');
-insert into address(name, intor, address_img, content)
+insert into address(name, intro, address_img, content)
        values('车辆工程学院','车辆工程学院的简介','src/main/webapp/addressPictures/浙江大学.jpg','车辆工程学院的内容');
-insert into address(name, intor, address_img, content)
+insert into address(name, intro, address_img, content)
        values('食品科学与工程学院','食品科学与工程学院的简介','src/main/webapp/addressPictures/西安电子科技大学.jpg','食品科学与工程学院的内容');
 
 
 
-insert into sort(sortName, intor, isLook,update_time, uid)
+insert into sort(sortName, intro, isLook,update_time, uid)
     values('拉力赛车','这是拉力赛车',true,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intor, isLook,update_time, uid)
+insert into sort(sortName, intro, isLook,update_time, uid)
     values('王者荣耀','这是王者荣耀',true,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intor, isLook,update_time, uid)
+insert into sort(sortName, intro, isLook,update_time, uid)
     values('宿舍','这是宿舍',false,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intor, isLook,update_time, uid)
+insert into sort(sortName, intro, isLook,update_time, uid)
     values('演讲','这是演讲',true,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intor, isLook,update_time, uid)
+insert into sort(sortName, intro, isLook,update_time, uid)
     values('通知','这是通知',false,'2023-10-23 18:50:05',9);
 
 
 
-insert into forum(id,uid,title,content, intor, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
        values (1,1,'拉力赛车','怎么我看的好多拉力赛里都是现代跟丰田，其他车厂没参加吗？','关于拉力赛车的疑问','src/main/webapp/forumPictures/1.jpg',1,9,5,NOW());
-insert into forum(id,uid,title,content, intor, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
        values (2,2,'王者荣耀','ELO机制不用我说了，简单来说就是强行控制胜率的游戏，不得不说想让你输，系统有的是办法，刚刚在打第五把典韦明显被恶到了第一就是匹配实力不对等的队友，队友都是人坤一样，第二就是团战制造460，这种最恶心，就是想尽办法让你输。','教大家如何单排保持高胜率低场次高评分，避免成为积分...','src/main/webapp/forumPictures/2.jpg',2,55,8,NOW());
-insert into forum(id,uid,title,content, intor, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
        values (3,3,'宿舍晒照比赛','大家快来晒出你们的漂亮宿舍照片吧！我们将挑选最美的宿舍进行评选哦！','宿舍晒照,有奖拿哦','src/main/webapp/forumPictures/3.jpg',3,45,99,NOW());
-insert into forum(id,uid,title,content, intor, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
        values (4,5,'演讲比赛','我校举办校园演讲比赛，现在开始接受报名了！有兴趣展示自己演讲才能的同学可以前往学生事务处办理报名手续','校园演讲他来喽','src/main/webapp/forumPictures/4.jpg',4,1030,103,NOW());
-insert into forum(id,uid,title,content, intor, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
        values (5,9,'图书馆闭馆调整','由于学校活动需求，图书馆闭馆时间自即日起调整为每周五晚上8点。请同学们合理安排学习时间，多利用图书馆资源','关于图书馆闭馆时间调整的通知','src/main/webapp/forumPictures/5.jpg',5,23,5,NOW());
 
 
 
 
 
-insert into UserMessage(uid, receiver_id, content)
+insert into user_message(uid, receiver_id, content)
     value (1,3,'明天8点上课,别迟到了');
-insert into UserMessage(uid, receiver_id, content)
+insert into user_message(uid, receiver_id, content)
     value (3,5,'在干嘛,上号打游戏');
-insert into UserMessage(uid, receiver_id, content)
+insert into user_message(uid, receiver_id, content)
     value (5,9,'出来玩吗');
 
 
 
 
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (1,3,'小亮');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (1,5,'小高');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (3,1,'小北');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (5,1,'小北');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (3,5,'小高');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (5,3,'小亮');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (5,9,'小高');
-insert into friendsList(uid, friend_id, appellation)
+insert into friends_list(uid, friend_id, appellation)
     values (9,5,'xhpy');
 
 

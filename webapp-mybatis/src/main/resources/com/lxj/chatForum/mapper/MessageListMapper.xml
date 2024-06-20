@@ -31,11 +31,11 @@
         FROM user WHERE id in(SELECT DISTINCT fid
         FROM (
         SELECT receiver_id AS fid
-        FROM UserMessage
+        FROM user_message
         WHERE uid = #{uid}
         UNION
         SELECT uid AS fid
-        FROM UserMessage
+        FROM user_message
         WHERE receiver_id = #{uid}
         ) as temp)
     </select>
@@ -57,7 +57,7 @@
                f.appellation
         FROM user u
                  JOIN (SELECT friend_id AS id, appellation
-                       FROM friendslist
+                       FROM friends_list
                        WHERE uid = #{uid}) f ON u.id = f.id
     </select>
     <!--    //获取两个人的聊天对话-->
@@ -75,12 +75,12 @@
     </insert>
     <!--    //  添加一位朋友-->
     <insert id="insertFriend">
-        insert into chatforum.friendslist (uid, friend_id)
+        insert into chatforum.friends_list (uid, friend_id)
         values (#{uid}, #{friendId})
     </insert>
     <!--    //更新朋友的称呼-->
     <update id="updateFriend">
-        update chatforum.friendslist
+        update chatforum.friends_list
         set appellation=#{appellation}
         where uid = #{uid}
           and friend_id = #{friend_id}

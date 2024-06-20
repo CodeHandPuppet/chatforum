@@ -22,34 +22,35 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public String toGetAllAddresses() {
-        Gson gson=new Gson();
+    public List<AddressPojo> toGetAllAddresses() {
+
+
         List<AddressPojo> addresses = addressMapper.getAddresses();
-        if(addresses==null){
-            return gson.toJson(ReturnData.error("No addresses"));
-        }
-        return gson.toJson(ReturnData.success(addresses));
+
+        return addresses;
+
+
+
     }
 
     @Override
-    public String toAddAddress(String json) {
-        Gson gson=new Gson();
-        AddressPojo addressPojo = gson.fromJson(json, AddressPojo.class);
-        int count = addressMapper.insert(addressPojo);
-        if(count==0){
-            return gson.toJson(ReturnData.error("No addresses"));
-        }
-        return gson.toJson(ReturnData.success("yes"));
+    public int toAddAddress(AddressPojo address) {
+
+
+
+        int count = addressMapper.insert(address);
+
+        return count;
+
     }
 
     @Override
-    public String toEditAddress(String json) {
-        Gson gson=new Gson();
-        AddressPojo addressPojo = gson.fromJson(json, AddressPojo.class);
-        int count = addressMapper.update(addressPojo);
-        if(count==0){
-            return gson.toJson(ReturnData.error("No addresses"));
-        }
-        return gson.toJson(ReturnData.success("yes"));
+    public int toEditAddress(AddressPojo address) {
+
+
+        int count = addressMapper.update(address);
+
+        return count;
+
     }
 }
