@@ -8,23 +8,32 @@ import com.lxj.chatForum.pojo.UserPojo;
 import com.lxj.chatForum.service.UserService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Service
 public class UserServiceImpl implements UserService {
 
-    //    UserDao userDao=new UserDaoImpl();
-    UserMapper userDao = SqlSessionUtils.openSession().getMapper(UserMapper.class);
+    //    UserDao userMapper=new UserDaoImpl();
+//    UserMapper userMapper = SqlSessionUtils.openSession().getMapper(UserMapper.class);
+
+    @Resource
+    UserMapper userMapper;
+
+
 
     @Override
     public String getInfoByToken(String token) {
 
         Gson gson = new GsonBuilder().create();
 //
-        UserPojo userInfo = userDao.getUserInfoByToken(token);
+        UserPojo userInfo = userMapper.getUserInfoByToken(token);
 
         if (userInfo == null) {
             return gson.toJson(ReturnData.error(userInfo));
@@ -39,7 +48,7 @@ public class UserServiceImpl implements UserService {
         Type type = new TypeToken<HashMap<String, String>>() {
         }.getType();
         Map<String, String> jsonMap = gson.fromJson(json, type);
-        UserPojo userInfo = userDao.getInfoById(jsonMap.get("id"));
+        UserPojo userInfo = userMapper.getInfoById(jsonMap.get("id"));
 
         if (userInfo == null) {
             return gson.toJson(ReturnData.error(null));
@@ -57,7 +66,7 @@ public class UserServiceImpl implements UserService {
         String username = jsonMap.get("username");
         String password = jsonMap.get("password");
 //
-        String token = userDao.getTokenByUsernameAndPassword(username, password);
+        String token = userMapper.getTokenByUsernameAndPassword(username, password);
         Map<String, String> map = new HashMap<>();
         map.put("token", token);
         if (token == null) {
@@ -72,7 +81,7 @@ public class UserServiceImpl implements UserService {
         Gson gson = new GsonBuilder().create();
 
 
-        List<UserPojo> users = userDao.getUsers();
+        List<UserPojo> users = userMapper.getUsers();
         if (users == null) {
             return gson.toJson(ReturnData.error("error"));
         } else {
@@ -85,7 +94,7 @@ public class UserServiceImpl implements UserService {
         Gson gson = new GsonBuilder().create();
 
         UserPojo userPojo = gson.fromJson(json, UserPojo.class);
-        int update = userDao.update(userPojo);
+        int update = userMapper.update(userPojo);
         if (update == 0) {
             return gson.toJson(ReturnData.error("error"));
         }
@@ -98,7 +107,7 @@ public class UserServiceImpl implements UserService {
         Gson gson = new GsonBuilder().create();
 
         UserPojo userPojo = gson.fromJson(json, UserPojo.class);
-        int update = userDao.insert(userPojo);
+        int update = userMapper.insert(userPojo);
         if (update == 0) {
             return gson.toJson(ReturnData.error("error"));
         }
@@ -115,10 +124,10 @@ public class UserServiceImpl implements UserService {
         String oldPassword = jsonMap.get("oldPassword");
         String newPassword = jsonMap.get("newPassword");
 //      获得用户密码
-        String userPassword = userDao.userPasswordByToken(token);
+        String userPassword = userMapper.userPasswordByToken(token);
 //      判断密码是否正确
         if (userPassword.equals(oldPassword)) {
-            int i = userDao.updatePasswordByToken(newPassword, token);
+            int i = userMapper.updatePasswordByToken(newPassword, token);
 //            修改
             return gson.toJson(ReturnData.success("更改成功"));
         } else {

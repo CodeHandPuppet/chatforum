@@ -13,26 +13,31 @@ import com.lxj.chatForum.pojo.UserPojo;
 import com.lxj.chatForum.service.MessageListService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class MessageListServiceImpl implements MessageListService {
 
-//    UserDao userDao = new UserDaoImpl();
-//    MessageListDao messageListDao=new MessageListDaoImpl();
-    UserMapper userDao= SqlSessionUtils.openSession().getMapper(UserMapper.class);
-    MessageListMapper messageListDao = SqlSessionUtils.openSession().getMapper(MessageListMapper.class);
+//    UserDao userMapper = new UserDaoImpl();
+//    MessageListDao messageListMapper=new MessageListDaoImpl();
+    @Resource
+    UserMapper userMapper;
+    @Resource
+    MessageListMapper messageListMapper;
 
     @Override
     public String getFriends(String token) {
         Gson gson = new GsonBuilder().create();
 
-        String uid = userDao.getIdBytoken(token);
-//        HashMap<String,Object> map=messageListDao.getFriendMessageList(uid);  // 老代码
-        List<UserPojo> friendMessageList = messageListDao.getFriendMessageList(uid);
+        String uid = userMapper.getIdBytoken(token);
+//        HashMap<String,Object> map=messageListMapper.getFriendMessageList(uid);  // 老代码
+        List<UserPojo> friendMessageList = messageListMapper.getFriendMessageList(uid);
         HashMap<String, Object> map = new HashMap();
         map.put("type", "friend");
         map.put("friends", friendMessageList);
@@ -45,9 +50,9 @@ public class MessageListServiceImpl implements MessageListService {
     @Override
     public String getChatList(String token) {
         Gson gson = new GsonBuilder().create();
-        String uid = userDao.getIdBytoken(token);
-//        HashMap<String,Object> map=messageListDao.getChatList(uid); //老代码
-        List<FriendsListPojo> chatList = messageListDao.getChatList(uid);
+        String uid = userMapper.getIdBytoken(token);
+//        HashMap<String,Object> map=messageListMapper.getChatList(uid); //老代码
+        List<FriendsListPojo> chatList = messageListMapper.getChatList(uid);
         HashMap<String, Object> map = new HashMap();
         map.put("friends", chatList);
         if (chatList == null) {
@@ -64,7 +69,7 @@ public class MessageListServiceImpl implements MessageListService {
         Map<String, String> jsonMap = gson.fromJson(json, typeC);
         String uid = jsonMap.get("uid");
         String send_id = jsonMap.get("receiver_id");
-        List<MessagePojo> list = messageListDao.getOneMessageArr(uid, send_id);
+        List<MessagePojo> list = messageListMapper.getOneMessageArr(uid, send_id);
         if (list == null) {
             return gson.toJson(ReturnData.error(null));
         }
@@ -75,7 +80,7 @@ public class MessageListServiceImpl implements MessageListService {
     public String toSendMessage(String json) {
         Gson gson = new GsonBuilder().create();
         MessagePojo messagePojo = gson.fromJson(json, MessagePojo.class);
-        int count = messageListDao.insertMessage(messagePojo);
+        int count = messageListMapper.insertMessage(messagePojo);
         if (count == 0) {
             gson.toJson(ReturnData.error(null));
         }
@@ -86,10 +91,10 @@ public class MessageListServiceImpl implements MessageListService {
     public String toAddFriend(String json) {
         Gson gson = new GsonBuilder().create();
         FriendsListPojo friendsListPojo = gson.fromJson(json, FriendsListPojo.class);
-//        int count = messageListDao.insertFriend(friendsListPojo); //老代码
-        int count=messageListDao.insertFriend(friendsListPojo.getUid(),friendsListPojo.getFriend_id());
+//        int count = messageListMapper.insertFriend(friendsListPojo); //老代码
+        int count=messageListMapper.insertFriend(friendsListPojo.getUid(),friendsListPojo.getFriend_id());
         if(count>0){
-            count+=messageListDao.insertFriend(friendsListPojo.getFriend_id(),friendsListPojo.getUid());
+            count+=messageListMapper.insertFriend(friendsListPojo.getFriend_id(),friendsListPojo.getUid());
         }
 
 
@@ -104,7 +109,7 @@ public class MessageListServiceImpl implements MessageListService {
     public String toEditAppellation(String json) {
         Gson gson = new GsonBuilder().create();
         FriendsListPojo friendsListPojo = gson.fromJson(json, FriendsListPojo.class);
-        int count = messageListDao.updateFriend(friendsListPojo);
+        int count = messageListMapper.updateFriend(friendsListPojo);
         if (count == 0) {
             gson.toJson(ReturnData.error(null));
         }

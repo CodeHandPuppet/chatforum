@@ -8,17 +8,23 @@ import com.lxj.chatForum.pojo.AddressPojo;
 import com.lxj.chatForum.service.AddressService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
 public class AddressServiceImpl implements AddressService {
 
-//    AddressDao addressDao=new AddressDaoImpl();
-    AddressMapper addressDao= SqlSessionUtils.openSession().getMapper(AddressMapper.class);
+    @Resource
+    AddressMapper addressMapper;
+
+
     @Override
     public String toGetAllAddresses() {
         Gson gson=new Gson();
-        List<AddressPojo> addresses = addressDao.getAddresses();
+        List<AddressPojo> addresses = addressMapper.getAddresses();
         if(addresses==null){
             return gson.toJson(ReturnData.error("No addresses"));
         }
@@ -29,7 +35,7 @@ public class AddressServiceImpl implements AddressService {
     public String toAddAddress(String json) {
         Gson gson=new Gson();
         AddressPojo addressPojo = gson.fromJson(json, AddressPojo.class);
-        int count = addressDao.insert(addressPojo);
+        int count = addressMapper.insert(addressPojo);
         if(count==0){
             return gson.toJson(ReturnData.error("No addresses"));
         }
@@ -40,7 +46,7 @@ public class AddressServiceImpl implements AddressService {
     public String toEditAddress(String json) {
         Gson gson=new Gson();
         AddressPojo addressPojo = gson.fromJson(json, AddressPojo.class);
-        int count = addressDao.update(addressPojo);
+        int count = addressMapper.update(addressPojo);
         if(count==0){
             return gson.toJson(ReturnData.error("No addresses"));
         }

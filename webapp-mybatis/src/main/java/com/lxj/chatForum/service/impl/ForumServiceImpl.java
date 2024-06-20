@@ -10,20 +10,24 @@ import com.lxj.chatForum.pojo.ForumPojo;
 import com.lxj.chatForum.service.ForumService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ForumServiceImpl implements ForumService {
 
-//    ForumDao forumDao=new ForumDaoImpl();
-    ForumMapper forumDao= SqlSessionUtils.openSession().getMapper(ForumMapper.class);
+//    ForumDao forumMapper=new ForumDaoImpl();
+    @Resource
+    ForumMapper forumMapper;
     @Override
     public String getAllArticle() {
         Gson gson=new GsonBuilder().create();
-        List<ForumPojo> forumPojoList=forumDao.getAllForum();
+        List<ForumPojo> forumPojoList=forumMapper.getAllForum();
         if(forumPojoList == null){
             return gson.toJson(ReturnData.error(null));
         }
@@ -37,7 +41,7 @@ public class ForumServiceImpl implements ForumService {
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String sortId = jsonMap.get("sortId");
 
-        List<ForumPojo> forumPojoList=forumDao.getForumBySortId(sortId);
+        List<ForumPojo> forumPojoList=forumMapper.getForumBySortId(sortId);
         if(forumPojoList == null){
             return gson.toJson(ReturnData.error(null));
         }
@@ -53,13 +57,13 @@ public class ForumServiceImpl implements ForumService {
         String type=jsonMap.get("type");
         List<ForumPojo> forumPojoList=null;
         if(type.equals("All")){
-                forumPojoList=forumDao.getAllForumByUid(uid);
+                forumPojoList=forumMapper.getAllForumByUid(uid);
         }
         else if(type.equals("like")){
-            forumPojoList=forumDao.getLikeForumByUid(uid);
+            forumPojoList=forumMapper.getLikeForumByUid(uid);
         }
         else  if(type.equals("collect")){
-            forumPojoList=forumDao.getCollectForum(uid);
+            forumPojoList=forumMapper.getCollectForum(uid);
         }
 
         if(forumPojoList == null){
@@ -75,7 +79,7 @@ public class ForumServiceImpl implements ForumService {
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String forumId = jsonMap.get("forumId");
 
-        ForumPojo forumPojoList=forumDao.getForumById(forumId);
+        ForumPojo forumPojoList=forumMapper.getForumById(forumId);
 
         if(forumPojoList == null){
             return gson.toJson(ReturnData.error(null));
@@ -87,7 +91,7 @@ public class ForumServiceImpl implements ForumService {
     public String toSend(String json) {
         Gson gson=new GsonBuilder().create();
         ForumPojo forum = gson.fromJson(json, ForumPojo.class);
-        int count=forumDao.addForum(forum);
+        int count=forumMapper.addForum(forum);
 
         if(count == 0){
             return gson.toJson(ReturnData.error(null));
@@ -100,7 +104,7 @@ public class ForumServiceImpl implements ForumService {
         Gson gson=new GsonBuilder().create();
         ForumPojo forum = gson.fromJson(json, ForumPojo.class);
         System.out.println(forum.getTitle());
-        int count=forumDao.updateForum(forum);
+        int count=forumMapper.updateForum(forum);
 
         if(count == 0){
             return gson.toJson(ReturnData.error(null));
@@ -114,7 +118,7 @@ public class ForumServiceImpl implements ForumService {
         Type typeC = new TypeToken<HashMap<String,String>>() {}.getType();
         Map<String,String> jsonMap = gson.fromJson(json, typeC);
         String id=jsonMap.get("id");
-        int count=forumDao.deleteForumById(id);
+        int count=forumMapper.deleteForumById(id);
 
         if(count == -1){
             return gson.toJson(ReturnData.error(null));
@@ -126,7 +130,7 @@ public class ForumServiceImpl implements ForumService {
     public String toGetForumsByLikesAndCollect() {
 
         Gson gson=new GsonBuilder().create();
-        List<ForumPojo> forumPojoList=forumDao.getForumsByLikesAndCollect();
+        List<ForumPojo> forumPojoList=forumMapper.getForumsByLikesAndCollect();
         if(forumPojoList == null){
             return gson.toJson(ReturnData.error(null));
         }

@@ -9,18 +9,22 @@ import com.lxj.chatForum.mapper.ForumLikeOrCollectMapper;
 import com.lxj.chatForum.service.ForumLikeOrCollectService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class ForumLikeOrCollectServiceImpl implements ForumLikeOrCollectService {
-//    ForumLikeOrCollectDao forumLikeOrCollectDao=new ForumLikeOrCollectDaoImpl();
-    ForumLikeOrCollectMapper forumLikeOrCollectDao= SqlSessionUtils.openSession().getMapper(ForumLikeOrCollectMapper.class);
+//    ForumLikeOrCollectDao forumLikeOrCollectMapper=new ForumLikeOrCollectDaoImpl();
+    @Resource
+    ForumLikeOrCollectMapper forumLikeOrCollectMapper;
 
     Gson gson=new GsonBuilder().create();
     Type typeC = new TypeToken<HashMap<String,String>>() {}.getType();
+
     @Override
     public String allTypeMethods(String json, String type) {
 
@@ -29,16 +33,16 @@ public class ForumLikeOrCollectServiceImpl implements ForumLikeOrCollectService 
         String forumId=jsonMap.get("forumId");
         int count=0;
        if(type.equals("likeAdd")){
-           count= forumLikeOrCollectDao.insertLike(uid,forumId);
+           count= forumLikeOrCollectMapper.insertLike(uid,forumId);
        }
        else if(type.equals("likeRemove")){
-           count= forumLikeOrCollectDao.deleteLike(uid,forumId);
+           count= forumLikeOrCollectMapper.deleteLike(uid,forumId);
        }
        else if(type.equals("collectAdd")){
-           count= forumLikeOrCollectDao.insertCollect(uid,forumId);
+           count= forumLikeOrCollectMapper.insertCollect(uid,forumId);
        }
        else if(type.equals("collectRemove")){
-           count=forumLikeOrCollectDao.deleteCollect(uid,forumId);
+           count=forumLikeOrCollectMapper.deleteCollect(uid,forumId);
        }
 
         if(count==0){
@@ -53,10 +57,10 @@ public class ForumLikeOrCollectServiceImpl implements ForumLikeOrCollectService 
         String uid=jsonMap.get("uid");
         List<Integer> list=null;
         if(type.equals("likeArr")){
-            list=forumLikeOrCollectDao.getAllLikeForumId(uid);
+            list=forumLikeOrCollectMapper.getAllLikeForumId(uid);
         }
         else if(type.equals("collectArr")){
-            list=forumLikeOrCollectDao.getAllCollectForumId(uid);
+            list=forumLikeOrCollectMapper.getAllCollectForumId(uid);
         }
 
         if(list==null){

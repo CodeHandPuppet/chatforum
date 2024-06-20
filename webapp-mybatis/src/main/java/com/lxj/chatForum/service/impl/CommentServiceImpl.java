@@ -9,17 +9,19 @@ import com.lxj.chatForum.pojo.CommentPojo;
 import com.lxj.chatForum.service.CommentService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class CommentServiceImpl implements CommentService {
 
-//    CommentDao commentDao=new CommentDaoImpl();
-
-    CommentMapper commentDao= SqlSessionUtils.openSession().getMapper(CommentMapper.class);
+//    CommentDao commentMapper=new CommentDaoImpl();
+    @Resource
+    CommentMapper commentMapper;
 
     @Override
     public String getComments(String json) {
@@ -27,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
         Type type = new TypeToken<HashMap<String,String>>() {}.getType();
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String forumId = jsonMap.get("forumId");
-        List<CommentPojo> list=commentDao.getCommentsByForumId(forumId);
+        List<CommentPojo> list=commentMapper.getCommentsByForumId(forumId);
         if(list==null){
             return gson.toJson(ReturnData.error(null)) ;
         }
@@ -39,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
         Gson gson=new GsonBuilder().create();
         CommentPojo comment = gson.fromJson(json,CommentPojo.class);
 //        String forumId = jsonMap.get("forumId");
-        int id=commentDao.insertReturnId(comment);
+        int id=commentMapper.insertReturnId(comment);
         if(id==-1){
             return gson.toJson(ReturnData.error(null)) ;
         }
@@ -56,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
         String id= jsonMap.get("id");
         String parentId=jsonMap.get("parentId");
         System.out.println(parentId);
-         int count=commentDao.deleteById(id,parentId);
+         int count=commentMapper.deleteById(id,parentId);
 
         if(count==0){
             return gson.toJson(ReturnData.error(null)) ;

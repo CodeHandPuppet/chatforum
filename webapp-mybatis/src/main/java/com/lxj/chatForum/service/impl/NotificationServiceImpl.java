@@ -12,21 +12,26 @@ import com.lxj.chatForum.pojo.UserPojo;
 import com.lxj.chatForum.service.NotificationService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotificationServiceImpl implements NotificationService {
-//    NotificationDao notificationDao=new NotificationDaoImpl();
 
-    NotificationMapper notificationDao= SqlSessionUtils.openSession().getMapper(NotificationMapper.class);
+@Service
+public class NotificationServiceImpl implements NotificationService {
+//    NotificationDao notificationMapper=new NotificationDaoImpl();
+    
+    @Resource
+    NotificationMapper notificationMapper;
     Gson gson=new GsonBuilder().create();
     @Override
     public String toGetAllAdminNotifications() {
 
-        List<NotificationPojo> list=notificationDao.getAdminNotifications();
+        List<NotificationPojo> list=notificationMapper.getAdminNotifications();
         if(list == null){
             return gson.toJson(ReturnData.error(null));
         }
@@ -39,7 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
         Type type = new TypeToken<HashMap<String,String>>() {}.getType();
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String uid = jsonMap.get("uid");
-        List<UserPojo> list=notificationDao.getFriendsUserInfo(uid);
+        List<UserPojo> list=notificationMapper.getFriendsUserInfo(uid);
         if(list == null){
             return gson.toJson(ReturnData.error(null));
         }
@@ -53,7 +58,7 @@ public class NotificationServiceImpl implements NotificationService {
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String receiverId = jsonMap.get("receiver_id");
         String senderId=jsonMap.get("sender_id");
-        int count = notificationDao.delete(receiverId, senderId);
+        int count = notificationMapper.delete(receiverId, senderId);
         if(count==0){
             return gson.toJson(ReturnData.error(null));
         }
@@ -67,7 +72,7 @@ public class NotificationServiceImpl implements NotificationService {
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String receiverId = jsonMap.get("receiver_id");
         String senderId=jsonMap.get("sender_id");
-        int count = notificationDao.addFriendNot(receiverId, senderId);
+        int count = notificationMapper.addFriendNot(receiverId, senderId);
         if(count==0){
             return gson.toJson(ReturnData.error(null));
         }
@@ -77,7 +82,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public String toEditAdminNotifications(String json) {
         NotificationPojo notificationPojo = gson.fromJson(json, NotificationPojo.class);
-        int count=notificationDao.updateAdminNot(notificationPojo);
+        int count=notificationMapper.updateAdminNot(notificationPojo);
         if(count==0){
             return gson.toJson(ReturnData.error(null));
         }
@@ -90,7 +95,7 @@ public class NotificationServiceImpl implements NotificationService {
         Type type = new TypeToken<HashMap<String,String>>() {}.getType();
         Map<String,String> jsonMap = gson.fromJson(json, type);
         String id = jsonMap.get("id");
-        int count = notificationDao.deleteById(id);
+        int count = notificationMapper.deleteById(id);
         if(count==0){
             return gson.toJson(ReturnData.error(null));
         }
@@ -101,7 +106,7 @@ public class NotificationServiceImpl implements NotificationService {
     public String toAddAdminNotifications(String json) {
 
         NotificationPojo notificationPojo = gson.fromJson(json, NotificationPojo.class);
-        int count=notificationDao.addAdminNot(notificationPojo);
+        int count=notificationMapper.addAdminNot(notificationPojo);
         if(count==0){
             return gson.toJson(ReturnData.error(null));
         }

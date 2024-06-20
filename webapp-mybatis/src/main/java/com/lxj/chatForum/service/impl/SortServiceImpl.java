@@ -11,19 +11,22 @@ import com.lxj.chatForum.pojo.SortPojo;
 import com.lxj.chatForum.service.SortService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class SortServiceImpl implements SortService {
-//    SortDao sortDao=new SortDaoImpl();
-    SortMapper sortDao= SqlSessionUtils.openSession().getMapper(SortMapper.class);
+//    SortDao sortMapper=new SortDaoImpl();
+    @Resource
+    SortMapper sortMapper;
     @Override
     public String getAll() {
         Gson gson=new GsonBuilder().create();
-        List<SortPojo> list=sortDao.getAllSort();
+        List<SortPojo> list=sortMapper.getAllSort();
         if(list == null){
             return gson.toJson(ReturnData.error(null));
         }
@@ -34,7 +37,7 @@ public class SortServiceImpl implements SortService {
     public String toEditSort(String json) {
         Gson gson=new GsonBuilder().create();
         SortPojo sortPojo = gson.fromJson(json, SortPojo.class);
-        int update = sortDao.update(sortPojo);
+        int update = sortMapper.update(sortPojo);
         if(update==0){
             return gson.toJson(ReturnData.error(null));
         }
@@ -45,7 +48,7 @@ public class SortServiceImpl implements SortService {
     public String toAddSort(String json) {
         Gson gson=new GsonBuilder().create();
         SortPojo sortPojo = gson.fromJson(json, SortPojo.class);
-        int update = sortDao.insert(sortPojo);
+        int update = sortMapper.insert(sortPojo);
         if(update==0){
             return gson.toJson(ReturnData.error(null));
         }
@@ -58,7 +61,7 @@ public class SortServiceImpl implements SortService {
         Type typeC = new TypeToken<HashMap<String,String>>() {}.getType();
         Map<String,String> jsonMap = gson.fromJson(json, typeC);
         String id = jsonMap.get("id");
-        int count = sortDao.deleteById(id);
+        int count = sortMapper.deleteById(id);
         if(count==0){
             return gson.toJson(ReturnData.error(null));
         }

@@ -9,16 +9,19 @@ import com.lxj.chatForum.mapper.CommentLikeMapper;
 import com.lxj.chatForum.service.CommentLikeService;
 import com.lxj.chatForum.utils.ReturnData;
 import com.lxj.chatForum.utils.SqlSessionUtils;
+import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class CommentLikeServiceImpl implements CommentLikeService {
-//    CommentLikeDao commentLikeDao = new CommentLikeDaoImpl();
+//    CommentLikeDao commentLikeMapper = new CommentLikeDaoImpl();
 
-    CommentLikeMapper commentLikeDao= SqlSessionUtils.openSession().getMapper(CommentLikeMapper.class);
+    @Resource
+    CommentLikeMapper commentLikeMapper;
 
     Gson gson = new GsonBuilder().create();
     Type type = new TypeToken<HashMap<String, String>>() {}.getType();
@@ -29,7 +32,7 @@ public class CommentLikeServiceImpl implements CommentLikeService {
 
         Map<String, String> jsonMap = gson.fromJson(json, type);
         String uid = jsonMap.get("uid");
-        List<Integer> list = commentLikeDao.getCommentIdByForumIdAndUid(uid);
+        List<Integer> list = commentLikeMapper.getCommentIdByForumIdAndUid(uid);
 
         if (list == null) {
             return gson.toJson(ReturnData.error(null));
@@ -45,7 +48,7 @@ public class CommentLikeServiceImpl implements CommentLikeService {
         Map<String, String> jsonMap = gson.fromJson(json, type);
         String uid = jsonMap.get("uid");
         String commentId = jsonMap.get("commentId");
-        int list = commentLikeDao.insertByUidAndCommentId(uid, commentId);
+        int list = commentLikeMapper.insertByUidAndCommentId(uid, commentId);
         if (list == 0) {
             return gson.toJson(ReturnData.error(null));
         }
@@ -57,7 +60,7 @@ public class CommentLikeServiceImpl implements CommentLikeService {
         Map<String, String> jsonMap = gson.fromJson(json, type);
         String uid = jsonMap.get("uid");
         String commentId = jsonMap.get("commentId");
-        int list = commentLikeDao.deleteByUidAndCommentId(uid, commentId);
+        int list = commentLikeMapper.deleteByUidAndCommentId(uid, commentId);
 
         if (list == 0) {
             return gson.toJson(ReturnData.error(null));
