@@ -1,22 +1,28 @@
 package com.lxj.chatForum.service;
 
+import com.lxj.chatForum.pojo.UserPojo;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public interface UserService {
 
     //    通过token返回用户信息
-    String getInfoByToken(String token);
+    UserPojo getInfoByToken(String token);
 
     //    通过
-    String getInfoByUid(String json);
+    UserPojo getInfoByUid(String id);
 
     //
-    String login(String json);
+    Map<String,String> login(UserPojo user);
 
     //
-    String toGetAllUser();
+    List<UserPojo> toGetAllUser();
 
-    String toEditUser(String json);
+    void toEditUser(UserPojo user);
 
-    String toAddUser(String json);
+    void toAddUser(UserPojo user);
 
-    String toEditPassword(String json, String token);
+    String toEditPassword(HashMap<String,String> jsonMap, String token);
 }

@@ -11,6 +11,7 @@ public interface ForumService {
      * @return  List<ForumPojo>
      */
     List<ForumPojo> getAllArticle();
+
     /**
      * 通过id返回文章列表
      * @param sortId

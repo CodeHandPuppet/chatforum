@@ -21,21 +21,21 @@ export const getMessageListRequest = () => {
 }
 
 // 获取消息 和 内部群成员的基本信息
-export const getMemberMessage = (uid: string | number, receiver_id: number | string) => {
-    return request.post<any, MessageArrResponseData>(API.GET_MEMBERMESSAGE, { uid, receiver_id })
+export const getMemberMessage = (uid: string | number, receiverId: number | string) => {
+    return request.post<any, MessageArrResponseData>(API.GET_MEMBERMESSAGE, { uid, receiverId })
 }
 // 发送请求
 export const sendMessageRequest = (message: UserMessageData) => {
-    const { content, uid, receiver_id } = message;
-    return request.post<any, SaveOrDeleteResponseData>(API.MESSAGE_SEDN, { receiver_id, uid, content })
+    const { content, uid, receiverId } = message;
+    return request.post<any, SaveOrDeleteResponseData>(API.MESSAGE_SEDN, { receiverId, uid, content })
 }
 // 添加好友
-export const addFriendRequest = (uid: string | number, friend_id: number | string) => {
-    return request.post<any, SaveOrDeleteResponseData>(API.FIREND_ADD, { friend_id, uid });
+export const addFriendRequest = (uid: string | number, friendId: number | string) => {
+    return request.post<any, SaveOrDeleteResponseData>(API.FIREND_ADD, { friendId, uid });
 }
 // 编辑备注
-export const editFriendAppellationRequest = (uid: string | number, friend_id: number | string, appellation: string | null) => {
-    return request.post<any, SaveOrDeleteResponseData>(API.FRIEND_EIDTAPPELLATION, { friend_id, uid, appellation });
+export const editFriendAppellationRequest = (uid: string | number, friendId: number | string, appellation: string | null) => {
+    return request.post<any, SaveOrDeleteResponseData>(API.FRIEND_EIDTAPPELLATION, { friendId, uid, appellation });
 }
 
 

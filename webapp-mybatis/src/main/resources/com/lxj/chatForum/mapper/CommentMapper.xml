@@ -78,4 +78,5 @@
 <!--    <delete id="deleteByParentId">-->
 <!--        delete from comment where forum_id=#{forumId}-->
 <!--    </delete>-->
+
 </mapper>

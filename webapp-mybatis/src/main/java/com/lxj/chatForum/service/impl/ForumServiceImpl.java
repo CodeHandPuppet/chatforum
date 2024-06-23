@@ -1,29 +1,25 @@
 package com.lxj.chatForum.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.lxj.chatForum.dao.ForumDao;
-import com.lxj.chatForum.dao.impl.ForumDaoImpl;
+
 import com.lxj.chatForum.mapper.ForumMapper;
 import com.lxj.chatForum.pojo.ForumPojo;
 import com.lxj.chatForum.service.ForumService;
-import com.lxj.chatForum.utils.ReturnData;
-import com.lxj.chatForum.utils.SqlSessionUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class ForumServiceImpl implements ForumService {
 
-//    ForumDao forumMapper=new ForumDaoImpl();
+
     @Resource
     ForumMapper forumMapper;
+
+
+
     @Override
     public List<ForumPojo> getAllArticle() {
 

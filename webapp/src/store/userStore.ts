@@ -15,8 +15,8 @@ export const useUserStore = defineStore('userStore', {
             type: '',
             level: 0,
             address: "",
-            create_time: "",
-            forum_number: 0,
+            createTime: "",
+            forumNumber: 0,
             collect: 0,
             likes: 0
         }
@@ -41,7 +41,7 @@ export const useUserStore = defineStore('userStore', {
         async getUserInfo() {
             const result = await getUserinfoRequest();
             if (result.code == 200) {
-                const { avatar, id, nickname, signature, type, username, level, address, create_time, likes, collect, forum_number } = result.data;
+                const { avatar, id, nickname, signature, type, username, level, address, createTime, likes, collect, forumNumber } = result.data;
                 this.id = id;
                 this.avatar = avatar;
                 this.nickname = nickname;
@@ -52,7 +52,7 @@ export const useUserStore = defineStore('userStore', {
                 this.address = address;
                 this.likes = likes;
                 this.collect = collect;
-                this.forum_number = forum_number
+                this.forumNumber = forumNumber
             }
 
         },

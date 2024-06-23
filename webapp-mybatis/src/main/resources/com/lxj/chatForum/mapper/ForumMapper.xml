@@ -6,7 +6,7 @@
 
     <resultMap id="forumInfo" type="forumPojo">
         <result column="uid" property="uid"/>
-        <result column="sortId" property="sortId"/>
+        <result column="sort_id" property="sortId"/>
         <association property="user" select="com.lxj.chatForum.mapper.UserMapper.getInfoById" column="uid"/>
         <association property="sort" column="sortId" select="com.lxj.chatForum.mapper.SortMapper.getSortById"/>
     </resultMap>
@@ -23,7 +23,7 @@
 
         select *
         from forum
-        where sortId = #{sortId}
+        where sort_id = #{sortId}
         order by create_time desc
 
     </select>
@@ -51,13 +51,13 @@
             content=#{content},
             intro=#{intro},
             img=#{img},
-            sortId=#{sortId}
+            sort_id=#{sortId}
         where id = #{id}
     </update>
 
     <!-- 添加forum  -->
     <insert id="addForum">
-        insert into forum(uid, title, content, intro, img, sortId)
+        insert into forum(uid, title, content, intro, img, sort_id)
         values (#{uid}, #{title}, #{content}, #{intro}, #{img}, #{sortId})
     </insert>
     <!-- 删除forum -->
@@ -71,14 +71,14 @@
     <select id="getLikeForumByUid" resultMap="forumInfo">
         select *
         from forum
-        where id in (select forum_id from forum_like where user_id = #{uid})
+        where id in (select forum_id from forum_like where uid = #{uid})
         order by create_time desc
     </select>
     <!--  收藏表里面找 -->
     <select id="getCollectForum" resultMap="forumInfo">
         select *
         from forum
-        where id in (select forum_id from forum_collect where user_id = #{uid})
+        where id in (select forum_id from forum_collect where uid = #{uid})
         order by create_time desc
     </select>
 

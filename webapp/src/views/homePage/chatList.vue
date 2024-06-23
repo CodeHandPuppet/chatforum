@@ -43,10 +43,10 @@ const toSendMessage = (user: UserData) => {
   let path = "/messageList";
   router.push({ path });
 };
-const editAppellation = async (appellation: string, friend_id: number | string) => {
-  await editFriendAppellationRequest(userStore.id, friend_id, appellation);
+const editAppellation = async (appellation: string, friendId: number | string) => {
+  await editFriendAppellationRequest(userStore.id, friendId, appellation);
   chatlist.value.forEach((item) => {
-    if (item.friendInfo.id == friend_id) {
+    if (item.friendInfo.id == friendId) {
       item.appellation = appellation;
     }
   });

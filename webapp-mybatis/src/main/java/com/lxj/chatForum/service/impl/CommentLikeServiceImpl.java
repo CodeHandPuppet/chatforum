@@ -6,13 +6,19 @@ import com.lxj.chatForum.pojo.CommentLikePojo;
 import com.lxj.chatForum.service.CommentLikeService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
+
 
 @Service
 public class CommentLikeServiceImpl implements CommentLikeService {
 
+
+
     @Resource
     CommentLikeMapper commentLikeMapper;
+
 
 
     @Override
@@ -23,6 +29,7 @@ public class CommentLikeServiceImpl implements CommentLikeService {
         return list;
     }
 
+
     @Override
     public void addCommentLike(CommentLikePojo commentLike) {
 
@@ -31,6 +38,8 @@ public class CommentLikeServiceImpl implements CommentLikeService {
         commentLikeMapper.insertByUidAndCommentId(uid, commentId);
 
     }
+
+
 
     @Override
     public void deleteCommentLike(CommentLikePojo commentLike) {

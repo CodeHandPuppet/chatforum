@@ -17,7 +17,7 @@ const forumId = ref();
 let forumParams = ref<VisForum>({
   title: "",
   content: "",
-  intor: "",
+  intro: "",
   sortId: 0,
   img: "",
 });
@@ -106,10 +106,10 @@ watch(checkedSortParamas, () => {
           <el-input v-model="forumParams.title" placeholder="请输入文章标题" clearable />
         </div>
       </el-form-item>
-      <!-- intor -->
+      <!-- intro -->
       <el-form-item label="文章简介">
         <div class="input_textarea">
-          <el-input v-model="forumParams.intor" placeholder="请输入简介" />
+          <el-input v-model="forumParams.intro" placeholder="请输入简介" />
         </div>
       </el-form-item>
       <!-- img -->

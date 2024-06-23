@@ -1,4 +1,3 @@
-import { CommentData, ForumData, SortData, UserData, UserMessageData } from "@/type/websiteDataType";
 import { CommentApi } from "undraw-ui";
 import { ForumEntity, SortEntity, UserEntity, UserMessageEntity } from "./entityType";
 
@@ -9,18 +8,27 @@ export interface ResponseData {
     data: Object;
 }
 
+
+
 //  保存 OR 删除
 export interface SaveOrDeleteResponseData extends ResponseData {
     data: any
 }
 
+
+
+
 /*
 *    forum
 */
 
+export interface VisForum extends ForumEntity {
+    sort?: SortEntity;
+    user?: UserEntity;
+}
 
 export interface VisForumResponseData extends ResponseData {
-    data: ForumEntity[] | ForumEntity,
+    data: VisForum[] | VisForum,
 
 }
 

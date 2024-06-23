@@ -23,14 +23,14 @@ export const getAllSortRequest = () => {
 
 // 添加
 export const addSortRequest = (sort: SortData) => {
-    const { sortName, intor, isLook, uid } = sort;
-    return request.post<any, SaveOrDeleteResponseData>(API.SORT_ADD, { uid, sortName, intor, isLook });
+    const { sortName, intro, isLook, uid } = sort;
+    return request.post<any, SaveOrDeleteResponseData>(API.SORT_ADD, { uid, sortName, intro, isLook });
 }
 
 // 更改
 export const editSortRequest = (sort: SortData) => {
-    const { sortName, intor, isLook, id, uid } = sort;
-    return request.post<any, SaveOrDeleteResponseData>(API.SORT_EDIT, { uid, id, sortName, intor, isLook });
+    const { sortName, intro, isLook, id, uid } = sort;
+    return request.post<any, SaveOrDeleteResponseData>(API.SORT_EDIT, { uid, id, sortName, intro, isLook });
 }
 // 删除
 export const removeSortRequest = (id: number | string) => {

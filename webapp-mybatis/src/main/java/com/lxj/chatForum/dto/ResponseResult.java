@@ -1,8 +1,9 @@
 package com.lxj.chatForum.dto;
 
-import com.google.gson.annotations.Expose;
-import com.lxj.chatForum.utils.ReturnData;
 
+import lombok.Data;
+
+@Data
 public class ResponseResult {
 
     int code;

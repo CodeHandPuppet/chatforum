@@ -1,51 +1,77 @@
 package com.lxj.chatForum.controller;
 
+import com.lxj.chatForum.dto.ResponseResult;
+import com.lxj.chatForum.pojo.UserPojo;
+import com.lxj.chatForum.service.impl.UserServiceImpl;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 //@WebServlet({"/user/login","/user/getInfo","/user/getInfoByUid","/user/getAllUser"
 // ,"/user/add","/user/edit","/user/editPassword"})
 @Controller
+@ResponseBody
 @RequestMapping("/user")
 public class UserController {
-
+    
+    
+    
+    @Resource
+    UserServiceImpl userServiceImpl;
+    
+    
+    
     @PostMapping("/login")
-    public void login() {
-        // Implementation goes here
+    public ResponseResult login(@RequestBody UserPojo user) {
+        Map<String, String> login = userServiceImpl.login(user);
+
+        return ResponseResult.success(login);
     }
 
-    @PostMapping("/getInfo")
-    public void getInfo() {
-        // Implementation goes here
+    @GetMapping("/getInfo")
+    public ResponseResult getInfo(@RequestHeader("token")String token) {
+        UserPojo infoByToken = userServiceImpl.getInfoByToken(token);
+
+
+        return ResponseResult.success(infoByToken);
+
     }
 
     @PostMapping("/getInfoByUid")
-    public void getInfoByUid() {
-        // Implementation goes here
+    public ResponseResult getInfoByUid(@RequestBody Map<String, String> map) {
+        UserPojo userInfo = userServiceImpl.getInfoByUid(map.get("id"));
+
+        return ResponseResult.success(userInfo);
     }
 
-    @PostMapping("/getAllUser")
-    public void getAllUser() {
-        // Implementation goes here
+    @GetMapping("/getAllUser")
+    public ResponseResult getAllUser() {
+        List<UserPojo> getAllUser = userServiceImpl.toGetAllUser();
+
+        return ResponseResult.success(getAllUser);
     }
 
     @PostMapping("/add")
-    public void add() {
-        // Implementation goes here
+    public ResponseResult add(@RequestBody UserPojo user) {
+        userServiceImpl.toAddUser(user);
+        return ResponseResult.success("ok");
     }
 
     @PostMapping("/edit")
-    public void edit() {
-        // Implementation goes here
+    public ResponseResult edit(@RequestBody UserPojo user) {
+        userServiceImpl.toEditUser(user);
+        return ResponseResult.success("ok");
     }
 
     @PostMapping("/editPassword")
-    public void editPassword() {
-        // Implementation goes here
+    public ResponseResult editPassword(@RequestHeader("token")String token,@RequestBody HashMap<String, String> map) {
+        userServiceImpl.toEditPassword(map,token);
+        return ResponseResult.success("ok");
     }
 
 }

@@ -21,11 +21,11 @@
 //         method: 'get',
 //         response: (request) => {
 //             const token = request.headers.token;
-//             const user_id = getId(token);
+//             const uid = getId(token);
 //             const friendsId: number[] = []
 //             friendsList.forEach(item => {
-//                 if (user_id == item.user_id) {
-//                     friendsId.push(item.friend_id);
+//                 if (uid == item.uid) {
+//                     friendsId.push(item.friendId);
 //                 }
 //             })
 //             const userInfo = users.map(item => {
@@ -54,10 +54,10 @@
 //         method: 'get',
 //         response: (request) => {
 //             const token = request.headers.token;
-//             const user_id = getId(token);
+//             const uid = getId(token);
 //             const groupsId: number[] = []
 //             groupMembers.forEach(item => {
-//                 if (user_id == item.user_id) {
+//                 if (uid == item.uid) {
 //                     groupsId.push(item.group_id);
 //                 }
 //             })
@@ -65,7 +65,7 @@
 //                 if (groupsId.includes(item.id)) {
 //                     return {
 //                         id: item.id,
-//                         name: item.group_name,
+//                         name: item.groupName,
 //                         avatar: item.avatar,
 //                         signature: item.signature,
 //                     }

@@ -122,7 +122,7 @@ const clickLikeOrCollect = async (type: "like" | "collect", event: any) => {
         <i class="fas fa-calendar-check mr-2 text-cyan-400"></i>
         <span class="flex items-center"
           ><h5 class="mr-1">发布于</h5>
-          <h2 class="text-xs">{{ forum?.create_time }}</h2>
+          <h2 class="text-xs">{{ forum?.createTime }}</h2>
         </span>
       </section>
       <div class="article">
@@ -146,7 +146,7 @@ const clickLikeOrCollect = async (type: "like" | "collect", event: any) => {
           >
         </div>
         <div class="intro">
-          <p>{{ forum?.intor }}</p>
+          <p>{{ forum?.intro }}</p>
         </div>
       </div>
       <!-- 底部分类 -->

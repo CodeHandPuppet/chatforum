@@ -11,32 +11,33 @@
         <!--    // 获取 申请加uid的人的个人信息-->
         <select id="getFriendsUserInfo" resultType="userPojo">
             SELECT
-                id,username,nickname,avatar,signature,type,level,likes,collect,forum_number,(concat('/userHome?id=',id))as homeLink,address
+                id,username,nickname,avatar,signature,type,level,likes,collect,
+                forum_number,(concat('/userHome?id=',id))as homeLink,address
             FROM
-                chatforum.user
-            WHERE id IN (SELECT sender_id FROM chatforum.notification WHERE type = 'AddFriend' AND receiver_id = #{uid})
+                chat_forum.user
+            WHERE id IN (SELECT sender_id FROM chat_forum.notification WHERE type = 'AddFriend' AND receiver_id = #{uid})
         </select>
         <!--    //根据接收id和发送id删除数据-->
         <delete id="delete">
-            delete from chatforum.notification where receiver_id = #{receiverId} and sender_id = #{senderId}
+            delete from chat_forum.notification where receiver_id = #{receiverId} and sender_id = #{senderId}
         </delete>
         <!--    //添加好友通知-->
         <insert id="addFriendNot">
-            insert into chatforum.notification(receiver_id,sender_id,type)  values(#{receiverId},#{senderId},'AddFriend')
+            insert into chat_forum.notification(receiver_id,sender_id,type)  values(#{receiverId},#{senderId},'AddFriend')
         </insert>
         <!--    //根据id删除数据-->
 
         <delete id="deleteById">
-            delete  from chatforum.notification where id=#{id}
+            delete  from chat_forum.notification where id=#{id}
         </delete>
         <!--    //添加管理员通知-->
 
         <insert id="addAdminNot">
-            insert into chatforum.notification(sender_id,content,isLook,type)  values(#{sender_id},#{content},#{isLook},'Admin')
+            insert into chat_forum.notification(sender_id,content,is_look,type)  values(#{sender_id},#{content},#{isLook},'Admin')
         </insert>
         <!--    //更新管理员发布的通知-->
         <update id="updateAdminNot">
-            update chatforum.notification set content=#{content} ,isLook=#{isLook} where id=#{id}
+            update chat_forum.notification set content=#{content} ,is_look=#{isLook} where id=#{id}
         </update>
 
 </mapper>

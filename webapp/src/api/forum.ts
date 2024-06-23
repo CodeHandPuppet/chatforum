@@ -16,7 +16,7 @@ enum API {
     FORUM_EDIT = '/forum/edit',
     // 保存文章    /forum/save                  data:forum
     FORUM_SAVE = '/forum/send',
-    // 删除文章    /forum/delete/                  data:forum_id
+    // 删除文章    /forum/delete/                  data:forumId
     FORUM_DELETE = '/forum/deleteById',
     // 获得热度文章
     FORUM_LIKANDFORUM = '/forum/getForumsByLikesAndCollect'
@@ -45,14 +45,14 @@ export const getArticleByUidRequest = (type: "collect" | "All" | "like", uid: nu
 
 // 编辑该文章
 export const editArticleRequest = (forum: VisForum) => {
-    const { title, content, intor, img, sortId, id, uid } = forum;
-    return request.post<any, SaveOrDeleteResponseData>(API.FORUM_EDIT, { title, content, intor, img, sortId, id, uid });
+    const { title, content, intro, img, sortId, id, uid } = forum;
+    return request.post<any, SaveOrDeleteResponseData>(API.FORUM_EDIT, { title, content, intro, img, sortId, id, uid });
 }
 
 // 发送文章
 export const saveArticleRequest = (forum: VisForum) => {
-    const { title, content, intor, img, sortId, uid } = forum;
-    return request.post<any, SaveOrDeleteResponseData>(API.FORUM_SAVE, { uid, title, content, intor, img, sortId });
+    const { title, content, intro, img, sortId, uid } = forum;
+    return request.post<any, SaveOrDeleteResponseData>(API.FORUM_SAVE, { uid, title, content, intro, img, sortId });
 }
 
 // 删除文章

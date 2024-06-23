@@ -20,21 +20,21 @@ export const users: User[] = [
 
 // 模拟的聊天消息数据
 export const userMessages: UserMessage[] = [
-    { id: 1, sender_id: 1, receiver_id: 2, content: 'Hello friend!', send_time: '2023-09-15 10:00:00' },
-    { id: 2, sender_id: 2, receiver_id: 1, content: 'Hi there!', send_time: '2023-09-15 10:01:00' },
-    { id: 3, sender_id: 1, receiver_id: 3, content: 'How are you?', send_time: '2023-09-15 11:00:00' },
-    { id: 4, sender_id: 5, receiver_id: 1, content: 'I am good, thanks!', send_time: '2023-09-15 11:01:01' },
-    { id: 5, sender_id: 3, receiver_id: 1, content: 'I am good, thanks!', send_time: '2023-09-15 11:20:00' },
-    { id: 6, sender_id: 3, receiver_id: 1, content: 'I am good, thanks!', send_time: '2023-09-15 11:30:00' },
+    { id: 1, senderId: 1, receiverId: 2, content: 'Hello friend!', sendTime: '2023-09-15 10:00:00' },
+    { id: 2, senderId: 2, receiverId: 1, content: 'Hi there!', sendTime: '2023-09-15 10:01:00' },
+    { id: 3, senderId: 1, receiverId: 3, content: 'How are you?', sendTime: '2023-09-15 11:00:00' },
+    { id: 4, senderId: 5, receiverId: 1, content: 'I am good, thanks!', sendTime: '2023-09-15 11:01:01' },
+    { id: 5, senderId: 3, receiverId: 1, content: 'I am good, thanks!', sendTime: '2023-09-15 11:20:00' },
+    { id: 6, senderId: 3, receiverId: 1, content: 'I am good, thanks!', sendTime: '2023-09-15 11:30:00' },
 ];
 
 // 模拟的群组数据
 export const groups: Group[] = [
-    { id: 1, group_name: '一家亲', owner_id: 1, avatar: 'src/assets/image/avatar_8.jpg', signature: '' },
-    { id: 2, group_name: '舔狗一家', owner_id: 1, avatar: 'src/assets/image/avatar_9.jpg', signature: '' },
-    { id: 3, group_name: '女神', owner_id: 1, avatar: 'src/assets/image/avatar_10.jpg', signature: '' },
-    { id: 4, group_name: '动漫谈论', owner_id: 4, avatar: 'src/assets/image/avatar_11.jpg', signature: '' },
-    { id: 5, group_name: '游戏之家', owner_id: 5, avatar: 'src/assets/image/avatar_12.jpg', signature: '' },
+    { id: 1, groupName: '一家亲', owner_id: 1, avatar: 'src/assets/image/avatar_8.jpg', signature: '' },
+    { id: 2, groupName: '舔狗一家', owner_id: 1, avatar: 'src/assets/image/avatar_9.jpg', signature: '' },
+    { id: 3, groupName: '女神', owner_id: 1, avatar: 'src/assets/image/avatar_10.jpg', signature: '' },
+    { id: 4, groupName: '动漫谈论', owner_id: 4, avatar: 'src/assets/image/avatar_11.jpg', signature: '' },
+    { id: 5, groupName: '游戏之家', owner_id: 5, avatar: 'src/assets/image/avatar_12.jpg', signature: '' },
 
 ];
 
@@ -42,57 +42,57 @@ export const groups: Group[] = [
 export const groupMembers: groupMember[] = [
 
     // 一群
-    { id: 1, group_id: 1, user_id: 1 },
-    { id: 6, group_id: 1, user_id: 2 },
-    { id: 6, group_id: 1, user_id: 4 },
-    { id: 6, group_id: 1, user_id: 5 },
-    { id: 6, group_id: 1, user_id: 6 },
+    { id: 1, group_id: 1, uid: 1 },
+    { id: 6, group_id: 1, uid: 2 },
+    { id: 6, group_id: 1, uid: 4 },
+    { id: 6, group_id: 1, uid: 5 },
+    { id: 6, group_id: 1, uid: 6 },
     // 二群
-    { id: 2, group_id: 2, user_id: 1 },
-    { id: 6, group_id: 2, user_id: 2 },
-    { id: 6, group_id: 2, user_id: 4 },
-    { id: 6, group_id: 2, user_id: 5 },
-    { id: 6, group_id: 2, user_id: 7 },
+    { id: 2, group_id: 2, uid: 1 },
+    { id: 6, group_id: 2, uid: 2 },
+    { id: 6, group_id: 2, uid: 4 },
+    { id: 6, group_id: 2, uid: 5 },
+    { id: 6, group_id: 2, uid: 7 },
     // 三群
-    { id: 3, group_id: 3, user_id: 1 },
-    { id: 3, group_id: 3, user_id: 6 },
-    { id: 3, group_id: 3, user_id: 5 },
-    { id: 3, group_id: 3, user_id: 2 },
-    { id: 3, group_id: 3, user_id: 3 },
+    { id: 3, group_id: 3, uid: 1 },
+    { id: 3, group_id: 3, uid: 6 },
+    { id: 3, group_id: 3, uid: 5 },
+    { id: 3, group_id: 3, uid: 2 },
+    { id: 3, group_id: 3, uid: 3 },
     // 四群
-    { id: 4, group_id: 4, user_id: 4 },
-    { id: 4, group_id: 4, user_id: 1 },
-    { id: 4, group_id: 4, user_id: 3 },
-    { id: 4, group_id: 4, user_id: 2 },
-    { id: 4, group_id: 4, user_id: 7 },
+    { id: 4, group_id: 4, uid: 4 },
+    { id: 4, group_id: 4, uid: 1 },
+    { id: 4, group_id: 4, uid: 3 },
+    { id: 4, group_id: 4, uid: 2 },
+    { id: 4, group_id: 4, uid: 7 },
     // 五群
-    { id: 5, group_id: 5, user_id: 5 },
-    { id: 5, group_id: 5, user_id: 2 },
-    { id: 5, group_id: 5, user_id: 3 },
-    { id: 5, group_id: 5, user_id: 7 },
-    { id: 5, group_id: 5, user_id: 6 },
-    { id: 5, group_id: 5, user_id: 4 },
+    { id: 5, group_id: 5, uid: 5 },
+    { id: 5, group_id: 5, uid: 2 },
+    { id: 5, group_id: 5, uid: 3 },
+    { id: 5, group_id: 5, uid: 7 },
+    { id: 5, group_id: 5, uid: 6 },
+    { id: 5, group_id: 5, uid: 4 },
 ];
 // 模拟好友成员数据
 export const friendsList: FriendsList[] = [
-    { id: 1, user_id: 1, friend_id: 2 },
-    { id: 1, user_id: 2, friend_id: 1 },
-    { id: 1, user_id: 1, friend_id: 3 },
-    { id: 1, user_id: 3, friend_id: 1 },
-    { id: 1, user_id: 1, friend_id: 4 },
-    { id: 1, user_id: 4, friend_id: 1 },
-    { id: 1, user_id: 1, friend_id: 5 },
-    { id: 1, user_id: 5, friend_id: 1 },
+    { id: 1, uid: 1, friendId: 2 },
+    { id: 1, uid: 2, friendId: 1 },
+    { id: 1, uid: 1, friendId: 3 },
+    { id: 1, uid: 3, friendId: 1 },
+    { id: 1, uid: 1, friendId: 4 },
+    { id: 1, uid: 4, friendId: 1 },
+    { id: 1, uid: 1, friendId: 5 },
+    { id: 1, uid: 5, friendId: 1 },
 ]
 // 模拟的群组消息数据
 export const groupMessages: GroupMessage[] = [
-    { id: 1, group_id: 1, sender_id: 1, content: 'Welcome to the group!', send_time: '2023-09-15 12:00:00' },
-    { id: 2, group_id: 1, sender_id: 2, content: 'Thank you!', send_time: '2023-09-15 12:01:00' },
-    { id: 3, group_id: 2, sender_id: 1, content: 'Let\'s discuss the project', send_time: '2023-09-15 13:00:00' },
-    { id: 4, group_id: 2, sender_id: 7, content: 'Sure, I have some ideas!', send_time: '2023-09-15 13:01:00' },
+    { id: 1, group_id: 1, senderId: 1, content: 'Welcome to the group!', sendTime: '2023-09-15 12:00:00' },
+    { id: 2, group_id: 1, senderId: 2, content: 'Thank you!', sendTime: '2023-09-15 12:01:00' },
+    { id: 3, group_id: 2, senderId: 1, content: 'Let\'s discuss the project', sendTime: '2023-09-15 13:00:00' },
+    { id: 4, group_id: 2, senderId: 7, content: 'Sure, I have some ideas!', sendTime: '2023-09-15 13:01:00' },
 ];
 export const forum: Forum[] = [
-    { id: 1, sender_id: 1, collect: 0, like: 0, content: "", title: "", img: "", sendTime: '2023-09-15 13:00:00', sort: "" },
+    { id: 1, senderId: 1, collect: 0, like: 0, content: "", title: "", img: "", sendTime: '2023-09-15 13:00:00', sort: "" },
 
 ]
 

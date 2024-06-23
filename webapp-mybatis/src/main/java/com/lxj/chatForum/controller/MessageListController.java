@@ -1,57 +1,63 @@
 package com.lxj.chatForum.controller;
 
 import com.lxj.chatForum.dto.ResponseResult;
+import com.lxj.chatForum.pojo.FriendsListPojo;
+import com.lxj.chatForum.pojo.MessagePojo;
 import com.lxj.chatForum.service.MessageListService;
-import com.lxj.chatForum.service.impl.MessageListServiceImpl;
-import com.lxj.chatForum.utils.ReadJsonUtils;
-import jakarta.servlet.ServletException;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 //@WebServlet({"/message/getFriendMessageList","/message/getOneMessageArr",
 // "/chat/getFriends","/message/send","/friends/add","/friends/editAppellation"})
 @Controller
+@ResponseBody
 public class MessageListController extends HttpServlet {
-    @PostMapping("/message/getFriendMessageList")
-    public ResponseResult getFriendMessageList() {
-        
-        return null;
+
+
+    @Resource
+    MessageListService messageListServiceImpl;
+
+    @GetMapping("/message/getFriendMessageList")
+    public ResponseResult getFriendMessageList(@RequestHeader("token")String token){
+
+        Map<String, Object> friends = messageListServiceImpl.getFriends(token);
+
+        return ResponseResult.success(friends);
     }
 
     @PostMapping("/message/getOneMessageArr")
-    public ResponseResult getOneMessageArr() {
-        
-        return null;
+    public ResponseResult getOneMessageArr(@RequestBody MessagePojo message) {
+        List<MessagePojo> oneMessageArr = messageListServiceImpl.getOneMessageArr(message);
+        return ResponseResult.success(oneMessageArr);
     }
 
-    @PostMapping("/chat/getFriends")
-    public ResponseResult getFriends() {
-        
-        return null;
+    @GetMapping("/chat/getFriends")
+    public ResponseResult getFriends(@RequestHeader("token")String token) {
+        Map<String, Object> chatList = messageListServiceImpl.getChatList(token);
+        return ResponseResult.success(chatList);
     }
 
     @PostMapping("/message/send")
-    public ResponseResult send() {
-        
-        return null;
+    public ResponseResult send(@RequestBody MessagePojo message) {
+        messageListServiceImpl.toSendMessage(message);
+        return ResponseResult.success("ok");
     }
 
     @PostMapping("/friends/add")
-    public ResponseResult add() {
-        
-        return null;
+    public ResponseResult add(@RequestBody FriendsListPojo friend) {
+        messageListServiceImpl.toAddFriend(friend);
+        return ResponseResult.success("ok");
     }
 
     @PostMapping("/friends/editAppellation")
-    public ResponseResult editAppellation() {
-        
-        return null;
+    public ResponseResult editAppellation(@RequestBody FriendsListPojo friend) {
+        messageListServiceImpl.toEditAppellation(friend);
+        return ResponseResult.success("ok");
     }
 
 

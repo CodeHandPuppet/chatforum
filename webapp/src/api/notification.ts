@@ -29,17 +29,17 @@ export const getAddFriendRequest = (uid: string | number) => {
     return request.post<any, any>(API.NOTIFICATION_GETADDFRIEND, { uid });
 }
 // 删除好友同意申请
-export const delFriendNotificationRequest = (receiver_id: string | number, sender_id: string | number) => {
-    return request.post<any, any>(API.NOTIFICATION_DELFRIEND, { receiver_id, sender_id });
+export const delFriendNotificationRequest = (receiverId: string | number, senderId: string | number) => {
+    return request.post<any, any>(API.NOTIFICATION_DELFRIEND, { receiverId, senderId });
 }
 // 添加好友发出申请
-export const addFriendNotificationRequest = (receiver_id: string | number, sender_id: string | number) => {
-    return request.post<any, any>(API.NOTIFICATION_ADDFRIEND, { receiver_id, sender_id });
+export const addFriendNotificationRequest = (receiverId: string | number, senderId: string | number) => {
+    return request.post<any, any>(API.NOTIFICATION_ADDFRIEND, { receiverId, senderId });
 }
 // 
 export const addNotificationRequest = (notification: NotificationData) => {
-    const { content, isLook, sender_id } = notification;
-    return request.post<any, any>(API.NOTIFICATION_ADDADMINNOTIFICATION, { content, isLook, sender_id });
+    const { content, isLook, senderId } = notification;
+    return request.post<any, any>(API.NOTIFICATION_ADDADMINNOTIFICATION, { content, isLook, senderId });
 
 }
 export const editNotificationRequest = (notification: NotificationData) => {

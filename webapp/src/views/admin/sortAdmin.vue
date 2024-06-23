@@ -46,7 +46,7 @@ const isLookChange = async (row: SortData) => {
 const addSort = () => {
   sortParames.value.id = "";
   sortParames.value.isLook = false;
-  sortParames.value.intor = "";
+  sortParames.value.intro = "";
   sortParames.value.sortName = "";
   sortParames.value.uid = userStore.id;
   drawer.value = true;
@@ -54,7 +54,7 @@ const addSort = () => {
 const editSort = (row: SortData) => {
   sortParames.value.id = row.id;
   sortParames.value.isLook = row.isLook;
-  sortParames.value.intor = row.intor;
+  sortParames.value.intro = row.intro;
   sortParames.value.sortName = row.sortName;
   sortParames.value.uid = userStore.id;
   drawer.value = true;
@@ -110,7 +110,7 @@ const submitSort = async () => {
         <!--  -->
         <el-table-column prop="sortName" label="名称" width="220" />
         <!--  -->
-        <el-table-column prop="intor" label="简介" />
+        <el-table-column prop="intro" label="简介" />
         <!--  -->
         <el-table-column prop="isLook" label="是否展示">
           <template #default="{ row }">
@@ -125,7 +125,7 @@ const submitSort = async () => {
           </template>
         </el-table-column>
         <!--  -->
-        <el-table-column prop="create_time" sortable label="创建时间" />
+        <el-table-column prop="createTime" sortable label="创建时间" />
         <!--  -->
         <el-table-column>
           <template #default="{ row }">
@@ -141,7 +141,7 @@ const submitSort = async () => {
           <el-input v-model="sortParames.sortName"></el-input>
         </el-form-item>
         <el-form-item label="简介："
-          ><el-input v-model="sortParames.intor"></el-input
+          ><el-input v-model="sortParames.intro"></el-input
         ></el-form-item>
         <el-form-item label="是否展示："
           ><el-switch

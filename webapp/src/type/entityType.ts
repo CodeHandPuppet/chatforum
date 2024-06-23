@@ -1,6 +1,3 @@
-
-
-
 // forum 文章
 export interface ForumEntity {
     id?: string | number;
@@ -15,21 +12,22 @@ export interface ForumEntity {
     createTime?: number
     updateTime?: number
 
-
-
-    sort?: SortEntity;
-    user?: UserEntity;
-
 }
+
+
 
 // forum_collect 文章的收藏表
 export interface ForumCollectEntity {
     id: string | number;
     forumId: string | number;
-    userId: string | number;
+    uid: string | number;
     createTime?: string;
     updateTime?: string;
+
 }
+
+
+
 
 // forum_like 文章的喜欢表
 export interface ForumLikeEntity {
@@ -39,6 +37,9 @@ export interface ForumLikeEntity {
     createTime?: string;
     updateTime?: string;
 }
+
+
+
 
 // sort 分类
 export interface SortEntity {
@@ -51,6 +52,8 @@ export interface SortEntity {
     uid?: string | number;
 }
 
+
+
 // group 群的基本信息
 export interface GroupEntity {
     id: string | number;
@@ -62,6 +65,8 @@ export interface GroupEntity {
     updateTime?: string;
 }
 
+
+
 // groupMessage 群内部消息
 export interface GroupMessageEntity {
     id: string | number;
@@ -72,6 +77,8 @@ export interface GroupMessageEntity {
     contentImg?: string;
 }
 
+
+
 // group_member 群成员
 export interface GroupMemberEntity {
     id: string | number;
@@ -81,6 +88,7 @@ export interface GroupMemberEntity {
     groupAvatar?: string;
     joinTime?: string;
 }
+
 
 /*
  *      User
@@ -137,7 +145,6 @@ export interface WebsiteInfoEntity {
 }
 
 
-
 // comment 评论
 export interface CommentEntity {
     id?: string | number;
@@ -152,16 +159,14 @@ export interface CommentEntity {
 }
 
 
-
 // comment_like 评论的喜欢表
 export interface CommentLikeEntity {
     id: string | number;
     uid: string;
-    comment_id: string;
+    commentId: string;
     sendTime?: string;
     updateTime?: string;
 }
-
 
 
 // address 地址
@@ -174,7 +179,6 @@ export interface AddressEntity {
     createTime?: string;
     isLook?: boolean;
 }
-
 
 
 export interface NotificationEntity {

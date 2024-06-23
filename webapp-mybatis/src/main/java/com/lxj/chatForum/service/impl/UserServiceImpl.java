@@ -1,17 +1,12 @@
 package com.lxj.chatForum.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+
 import com.lxj.chatForum.mapper.UserMapper;
 import com.lxj.chatForum.pojo.UserPojo;
 import com.lxj.chatForum.service.UserService;
-import com.lxj.chatForum.utils.ReturnData;
-import com.lxj.chatForum.utils.SqlSessionUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,98 +24,65 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String getInfoByToken(String token) {
+    public UserPojo getInfoByToken(String token) {
 
-        Gson gson = new GsonBuilder().create();
+
 //
         UserPojo userInfo = userMapper.getUserInfoByToken(token);
 
-        if (userInfo == null) {
-            return gson.toJson(ReturnData.error(userInfo));
-        } else {
-            return gson.toJson(ReturnData.success(userInfo));
-        }
+        return userInfo;
     }
 
     @Override
-    public String getInfoByUid(String json) {
-        Gson gson = new GsonBuilder().create();
-        Type type = new TypeToken<HashMap<String, String>>() {
-        }.getType();
-        Map<String, String> jsonMap = gson.fromJson(json, type);
-        UserPojo userInfo = userMapper.getInfoById(jsonMap.get("id"));
+    public UserPojo getInfoByUid(String id) {
 
-        if (userInfo == null) {
-            return gson.toJson(ReturnData.error(null));
-        } else {
-            return gson.toJson(ReturnData.success(userInfo));
-        }
+        UserPojo userInfo = userMapper.getInfoById(id);
+
+        return userInfo;
     }
 
     @Override
-    public String login(String json) {
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        Type type = new TypeToken<HashMap<String, String>>() {
-        }.getType();
-        Map<String, String> jsonMap = gson.fromJson(json, type);
-        String username = jsonMap.get("username");
-        String password = jsonMap.get("password");
-//
+    public Map<String,String> login(UserPojo user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
         String token = userMapper.getTokenByUsernameAndPassword(username, password);
         Map<String, String> map = new HashMap<>();
         map.put("token", token);
-        if (token == null) {
-            return gson.toJson(ReturnData.error(map));
-        } else {
-            return gson.toJson(ReturnData.success(map));
-        }
+        return map;
     }
 
     @Override
-    public String toGetAllUser() {
-        Gson gson = new GsonBuilder().create();
+    public List<UserPojo> toGetAllUser() {
+
 
 
         List<UserPojo> users = userMapper.getUsers();
-        if (users == null) {
-            return gson.toJson(ReturnData.error("error"));
-        } else {
-            return gson.toJson(ReturnData.success(users));
-        }
+
+
+
+        return users;
     }
 
     @Override
-    public String toEditUser(String json) {
-        Gson gson = new GsonBuilder().create();
+    public void toEditUser(UserPojo user) {
 
-        UserPojo userPojo = gson.fromJson(json, UserPojo.class);
-        int update = userMapper.update(userPojo);
-        if (update == 0) {
-            return gson.toJson(ReturnData.error("error"));
-        }
-        return gson.toJson(ReturnData.success("ok"));
+        int update = userMapper.update(user);
+
+
 
     }
 
     @Override
-    public String toAddUser(String json) {
-        Gson gson = new GsonBuilder().create();
+    public void toAddUser( UserPojo user) {
 
-        UserPojo userPojo = gson.fromJson(json, UserPojo.class);
-        int update = userMapper.insert(userPojo);
-        if (update == 0) {
-            return gson.toJson(ReturnData.error("error"));
-        }
-        return gson.toJson(ReturnData.success("ok"));
+        int update = userMapper.insert(user);
+
 
     }
 
     @Override
-    public String toEditPassword(String json, String token) {
-        Gson gson = new GsonBuilder().create();
-        Type type = new TypeToken<HashMap<String, String>>() {
-        }.getType();
-        Map<String, String> jsonMap = gson.fromJson(json, type);
+    public String toEditPassword(HashMap<String,String> jsonMap, String token) {
+
         String oldPassword = jsonMap.get("oldPassword");
         String newPassword = jsonMap.get("newPassword");
 //      获得用户密码
@@ -129,10 +91,10 @@ public class UserServiceImpl implements UserService {
         if (userPassword.equals(oldPassword)) {
             int i = userMapper.updatePasswordByToken(newPassword, token);
 //            修改
-            return gson.toJson(ReturnData.success("更改成功"));
+            return "更改成功";
         } else {
-            ReturnData err = ReturnData.error("密码错误");
-            return gson.toJson(err);
+
+            return "更改失败";
         }
     }
 }

@@ -76,7 +76,7 @@ const showInfo = async (uid: string, finish: Function) => {
       level: temp.level,
       likes: temp.likes,
       collect: temp.collect,
-      forumNumber: temp.forum_number,
+      forumNumber: temp.forumNumber,
       homeLink: temp.homeLink,
     };
     loading.value = false;

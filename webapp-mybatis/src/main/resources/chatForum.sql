@@ -1,5 +1,5 @@
-create database chatForum;
-use chatForum;
+create database chat_forum;
+use chat_forum;
 
 
 
@@ -13,12 +13,14 @@ create table user(
     type varchar(300) default 'student',
     level INTEGER default 1,
     address varchar(50) not null ,
-    token VARCHAR(36) not null ,
+    token VARCHAR(36) default UUID() not null ,
     likes INTEGER default 0,    #获赞数
     collect INTEGER default 0,  #被收藏数
     forum_number INTEGER default 0,   #发表的文章数
     home_link varchar(50) default '/userHome?id='
 );
+
+
 
 
 create table sort(
@@ -53,11 +55,11 @@ create table forum(
 create table forum_collect(
     id INTEGER primary key AUTO_INCREMENT,
     forum_id INTEGER not null ,
-    user_id INTEGER not null ,
+    uid INTEGER not null ,
     create_time datetime default current_timestamp,
     update_time datetime,
     foreign key (forum_id) references forum(id),
-    foreign key (user_id) references user(id)
+    foreign key (uid) references user(id)
 );
 
 
@@ -65,11 +67,11 @@ create table forum_collect(
 create table forum_like(
     id INTEGER primary key AUTO_INCREMENT,
     forum_id INTEGER not null ,
-    user_id INTEGER not null ,
+    uid INTEGER not null ,
     create_time datetime default current_timestamp,
     update_time datetime,
     foreign key (forum_id) references forum(id),
-    foreign key (user_id) references user(id)
+    foreign key (uid) references user(id)
 );
 
 
@@ -131,105 +133,119 @@ create table address(
     create_time datetime default current_timestamp,
     intro varchar(300),   #简介
     address_img varchar(500),
+    is_look boolean default true,
     content varchar(2000)  #内容
 );
 
 
-CREATE TRIGGER insert_into_user
-    BEFORE INSERT ON user
-    FOR EACH ROW
-BEGIN
-    set new.token =UUID();
-    SET new.home_link = CONCAT('/userHome?id=',NEW.id);
-END;
+create table notification
+(
+    id          integer       null,
+    type        varchar(300)  null,
+    content     varchar(2000) null,
+    sender_id   integer       null,
+    receiver_id integer       null,
+    create_time datetime      null,
+    update_time datetime      null,
+    isLook      integer       null,
+    foreign key (sender_id) references user(id)
+);
 
-
-
-
-
-CREATE TRIGGER update_likes_after_insert
-    AFTER INSERT ON forum_like
-    FOR EACH ROW
-BEGIN
-    UPDATE forum
-    SET likes = likes + 1
-    WHERE id = NEW.forum_id;
-END;
-
-
-CREATE TRIGGER update_collect_after_insert
-    AFTER INSERT ON forum_collect
-    FOR EACH ROW
-BEGIN
-    UPDATE forum
-    SET collect = collect + 1
-    WHERE id = NEW.forum_id;
-END;
-
-
-CREATE TRIGGER update_likes_after_insert_comment_like
-    AFTER INSERT ON comment_like
-    FOR EACH ROW
-BEGIN
-    UPDATE comment
-    SET likes = likes + 1
-    WHERE id = NEW.comment_id;
-END;
-
-
-
-CREATE TRIGGER updateUserLikes1
-    AFTER INSERT ON forum_like
-    FOR EACH ROW
-BEGIN
-    UPDATE user
-    SET likes = likes + 1
-    WHERE id = NEW.forum_id;
-END;
-
-
-
-CREATE TRIGGER updateUserLikes2
-    AFTER INSERT ON comment_like
-    FOR EACH ROW
-BEGIN
-    UPDATE user
-    SET likes = likes + 1
-    WHERE id = NEW.comment_id;
-END;
-
-
-
-CREATE TRIGGER updateUserCollect
-    AFTER INSERT ON forum_collect
-    FOR EACH ROW
-BEGIN
-    UPDATE user
-    SET collect = collect + 1
-    WHERE id = NEW.forum_id;
-END;
-
-
-
-
-
-
-CREATE TRIGGER deleteByforum
-    after delete ON forum
-    FOR EACH ROW
-BEGIN
-    delete from forum_like where forum_id=OLD.id;
-    delete from forum_collect where forum_id=OLD.id;
-    delete from comment where forum_id=OLD.id;
-END;
-
-
-create trigger deleteBycomment
-    after delete on comment
-    for each row
-begin
-    delete from comment_like where comment_id=OLD.id;
-end;
+# CREATE TRIGGER insert_into_user
+#     BEFORE INSERT ON user
+#     FOR EACH ROW
+# BEGIN
+#     set new.token =UUID();
+#     SET new.home_link = CONCAT('/userHome?id=',NEW.id);
+# END;
+# 
+# 
+# 
+# 
+# 
+# CREATE TRIGGER update_likes_after_insert
+#     AFTER INSERT ON forum_like
+#     FOR EACH ROW
+# BEGIN
+#     UPDATE forum
+#     SET likes = likes + 1
+#     WHERE id = NEW.forum_id;
+# END;
+# 
+# 
+# CREATE TRIGGER update_collect_after_insert
+#     AFTER INSERT ON forum_collect
+#     FOR EACH ROW
+# BEGIN
+#     UPDATE forum
+#     SET collect = collect + 1
+#     WHERE id = NEW.forum_id;
+# END;
+# 
+# 
+# CREATE TRIGGER update_likes_after_insert_comment_like
+#     AFTER INSERT ON comment_like
+#     FOR EACH ROW
+# BEGIN
+#     UPDATE comment
+#     SET likes = likes + 1
+#     WHERE id = NEW.comment_id;
+# END;
+# 
+# 
+# 
+# CREATE TRIGGER updateUserLikes1
+#     AFTER INSERT ON forum_like
+#     FOR EACH ROW
+# BEGIN
+#     UPDATE user
+#     SET likes = likes + 1
+#     WHERE id = NEW.forum_id;
+# END;
+# 
+# 
+# 
+# CREATE TRIGGER updateUserLikes2
+#     AFTER INSERT ON comment_like
+#     FOR EACH ROW
+# BEGIN
+#     UPDATE user
+#     SET likes = likes + 1
+#     WHERE id = NEW.comment_id;
+# END;
+# 
+# 
+# 
+# CREATE TRIGGER updateUserCollect
+#     AFTER INSERT ON forum_collect
+#     FOR EACH ROW
+# BEGIN
+#     UPDATE user
+#     SET collect = collect + 1
+#     WHERE id = NEW.forum_id;
+# END;
+# 
+# 
+# 
+# 
+# 
+# 
+# CREATE TRIGGER deleteByforum
+#     after delete ON forum
+#     FOR EACH ROW
+# BEGIN
+#     delete from forum_like where forum_id=OLD.id;
+#     delete from forum_collect where forum_id=OLD.id;
+#     delete from comment where forum_id=OLD.id;
+# END;
+# 
+# 
+# create trigger deleteBycomment
+#     after delete on comment
+#     for each row
+# begin
+#     delete from comment_like where comment_id=OLD.id;
+# end;
 
 
 
@@ -261,28 +277,28 @@ insert into address(name, intro, address_img, content)
 
 
 
-insert into sort(sortName, intro, isLook,update_time, uid)
+insert into sort(sort_name, intro, is_look,update_time, uid)
     values('拉力赛车','这是拉力赛车',true,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intro, isLook,update_time, uid)
+insert into sort(sort_name, intro, is_look,update_time, uid)
     values('王者荣耀','这是王者荣耀',true,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intro, isLook,update_time, uid)
+insert into sort(sort_name, intro, is_look,update_time, uid)
     values('宿舍','这是宿舍',false,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intro, isLook,update_time, uid)
+insert into sort(sort_name, intro, is_look,update_time, uid)
     values('演讲','这是演讲',true,'2023-10-23 18:50:05',9);
-insert into sort(sortName, intro, isLook,update_time, uid)
+insert into sort(sort_name, intro, is_look,update_time, uid)
     values('通知','这是通知',false,'2023-10-23 18:50:05',9);
 
 
 
-insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sort_id, likes, collect,update_time)
        values (1,1,'拉力赛车','怎么我看的好多拉力赛里都是现代跟丰田，其他车厂没参加吗？','关于拉力赛车的疑问','src/main/webapp/forumPictures/1.jpg',1,9,5,NOW());
-insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sort_id, likes, collect,update_time)
        values (2,2,'王者荣耀','ELO机制不用我说了，简单来说就是强行控制胜率的游戏，不得不说想让你输，系统有的是办法，刚刚在打第五把典韦明显被恶到了第一就是匹配实力不对等的队友，队友都是人坤一样，第二就是团战制造460，这种最恶心，就是想尽办法让你输。','教大家如何单排保持高胜率低场次高评分，避免成为积分...','src/main/webapp/forumPictures/2.jpg',2,55,8,NOW());
-insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sort_id, likes, collect,update_time)
        values (3,3,'宿舍晒照比赛','大家快来晒出你们的漂亮宿舍照片吧！我们将挑选最美的宿舍进行评选哦！','宿舍晒照,有奖拿哦','src/main/webapp/forumPictures/3.jpg',3,45,99,NOW());
-insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sort_id, likes, collect,update_time)
        values (4,5,'演讲比赛','我校举办校园演讲比赛，现在开始接受报名了！有兴趣展示自己演讲才能的同学可以前往学生事务处办理报名手续','校园演讲他来喽','src/main/webapp/forumPictures/4.jpg',4,1030,103,NOW());
-insert into forum(id,uid,title,content, intro, img, sortId, likes, collect,update_time)
+insert into forum(id,uid,title,content, intro, img, sort_id, likes, collect,update_time)
        values (5,9,'图书馆闭馆调整','由于学校活动需求，图书馆闭馆时间自即日起调整为每周五晚上8点。请同学们合理安排学习时间，多利用图书馆资源','关于图书馆闭馆时间调整的通知','src/main/webapp/forumPictures/5.jpg',5,23,5,NOW());
 
 
@@ -319,25 +335,25 @@ insert into friends_list(uid, friend_id, appellation)
 
 
 
-insert into forum_like(forum_id, user_id,update_time)
+insert into forum_like(forum_id, uid,update_time)
     values (1,2,NOW());
-insert into forum_like(forum_id, user_id,update_time)
+insert into forum_like(forum_id, uid,update_time)
     values (2,3,NOW());
-insert into forum_like(forum_id, user_id,update_time)
+insert into forum_like(forum_id, uid,update_time)
     values (3,5,NOW());
-insert into forum_like(forum_id, user_id,update_time)
+insert into forum_like(forum_id, uid,update_time)
     values (3,9,NOW());
-insert into forum_like(forum_id, user_id,update_time)
+insert into forum_like(forum_id, uid,update_time)
     values (4,9,NOW());
 
 
-insert into forum_collect(forum_id, user_id,update_time)
+insert into forum_collect(forum_id, uid,update_time)
 values (1,2,NOW());
-insert into forum_collect(forum_id, user_id,update_time)
+insert into forum_collect(forum_id, uid,update_time)
 values (1,3,NOW());
-insert into forum_collect(forum_id, user_id,update_time)
+insert into forum_collect(forum_id, uid,update_time)
 values (2,5,NOW());
-insert into forum_collect(forum_id, user_id,update_time)
+insert into forum_collect(forum_id, uid,update_time)
 values (5,9,NOW());
 
 

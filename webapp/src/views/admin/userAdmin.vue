@@ -171,7 +171,7 @@ const changeSelect = async (row: any) => {
           </template>
         </el-table-column> -->
         <!-- 创建时间 -->
-        <!-- <el-table-column prop="create_time" sortable label="创建时间" align="center" /> -->
+        <!-- <el-table-column prop="createTime" sortable label="创建时间" align="center" /> -->
         <!-- 操作 -->
         <el-table-column label="操作">
           <template #default="{ row }">

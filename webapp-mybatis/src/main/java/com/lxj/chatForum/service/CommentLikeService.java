@@ -1,11 +1,11 @@
 package com.lxj.chatForum.service;
 
 import com.lxj.chatForum.pojo.CommentLikePojo;
-import com.lxj.chatForum.pojo.CommentPojo;
 
 import java.util.List;
 
 public interface CommentLikeService {
+
 
     List<Integer> getLikeArr(String uid);
 

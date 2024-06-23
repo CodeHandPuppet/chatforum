@@ -16,12 +16,12 @@
 
     <!--插入某一个地址-->
     <insert id="insert">
-        insert into address(name,intro,isLook) values (#{name},#{intro},#{isLook})
+        insert into address(name,intro,is_look) values (#{name},#{intro},#{isLook})
     </insert>
 
     <!--  更新某个地址-->
     <update id="update">
-        update address set name=#{name},intro=#{intro},isLook=#{isLook} where id=#{id}
+        update address set name=#{name},intro=#{intro},is_look=#{isLook} where id=#{id}
     </update>
 
 </mapper>

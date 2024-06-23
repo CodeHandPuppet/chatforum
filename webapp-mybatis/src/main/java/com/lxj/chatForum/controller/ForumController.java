@@ -3,20 +3,10 @@ package com.lxj.chatForum.controller;
 import com.lxj.chatForum.dto.ResponseResult;
 import com.lxj.chatForum.pojo.ForumPojo;
 import com.lxj.chatForum.service.ForumService;
-import com.lxj.chatForum.service.impl.ForumServiceImpl;
-import com.lxj.chatForum.utils.ReadJsonUtils;
 import jakarta.annotation.Resource;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,21 +14,26 @@ import java.util.List;
 //        "/forum/edit","/forum/send","/forum/deleteById","/forum/getOneArticle","/forum/getForumsByLikesAndCollect"})
 @RequestMapping("/forum")
 @Controller
+@ResponseBody
+
 public class ForumController  {
 
     @Resource
     ForumService forumServiceImpl;
+
 
     /**
      * 获取全部文章
      * @method GET
      * @return ResponseResult<ForumPojo>
      */
-    @PostMapping("/getAllArticle")
+    @GetMapping("/getAllArticle")
     public ResponseResult getAllArticle(){
         List<ForumPojo> allArticle = forumServiceImpl.getAllArticle();
         return ResponseResult.success(allArticle);
     }
+
+
 
     /**
      * 通过分类返回文章列表
@@ -52,6 +47,7 @@ public class ForumController  {
 
         return ResponseResult.success(list);
     }
+
 
     /**
      * 获取某人 某类的 的全部文章
@@ -67,6 +63,7 @@ public class ForumController  {
     }
 
 
+
     /**
      * 编辑forum文章
      * @param forum
@@ -79,6 +76,7 @@ public class ForumController  {
         return ResponseResult.success("ok");
     }
 
+
     /**
      * 编辑文章
      * @method post
@@ -90,6 +88,7 @@ public class ForumController  {
             forumServiceImpl.toSend(forum);
         return ResponseResult.success("ok");
     }
+
 
     /**
      * 根据发送过来的id删除文章
@@ -104,6 +103,7 @@ public class ForumController  {
         return ResponseResult.success("ok");
     }
 
+
     /**
      * 根据文章id获取某一篇文章
      * @param map
@@ -115,11 +115,12 @@ public class ForumController  {
         return ResponseResult.success(forum);
     }
 
+
     /**
      * 根据 喜欢 和 收集 返回热点文章
      * @return
      */
-    @PostMapping("/getForumsByLikesAndCollect")
+    @GetMapping("/getForumsByLikesAndCollect")
     public ResponseResult getForumsByLikesAndCollect() {
         List<ForumPojo> list = forumServiceImpl.toGetForumsByLikesAndCollect();
         return ResponseResult.success(list);

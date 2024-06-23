@@ -12,13 +12,13 @@ enum API {
 
 // 添加某个地址
 export const addAddressRequest = (address: AddressData) => {
-    const { name, intor, isLook } = address;
-    return request.post<any, any>(API.ADDRESS_ADD, { name, intor, isLook });
+    const { name, intro, isLook } = address;
+    return request.post<any, any>(API.ADDRESS_ADD, { name, intro, isLook });
 }
 // 编辑某个地址
 export const editAddressRequest = (address: AddressData) => {
-    const { name, intor, id, isLook } = address;
-    return request.post<any, any>(API.ADDRESS_EDIT, { isLook, name, intor, id });
+    const { name, intro, id, isLook } = address;
+    return request.post<any, any>(API.ADDRESS_EDIT, { isLook, name, intro, id });
 }
 // 获取所有的地址
 export const getAllAddressRequest = () => {

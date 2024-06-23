@@ -12,7 +12,7 @@ import { computed, onMounted, reactive, ref } from "vue";
 
 const addressArr = ref<AddressData[]>([]);
 let addressParames = ref<AddressData>({
-  intor: "",
+  intro: "",
   name: "",
 });
 const isLoading = ref(false);
@@ -38,14 +38,14 @@ const filterTableData = computed(() =>
 const addSort = () => {
   addressParames.value.id = "";
   addressParames.value.name = "";
-  addressParames.value.intor = "";
+  addressParames.value.intro = "";
   addressParames.value.isLook = false;
   drawer.value = true;
 };
 const editSort = (row: AddressData) => {
   addressParames.value.id = row.id;
   addressParames.value.name = row.name;
-  addressParames.value.intor = row.intor;
+  addressParames.value.intro = row.intro;
   addressParames.value.isLook = row.isLook;
   drawer.value = true;
 };
@@ -99,7 +99,7 @@ const switchRowIsLook = async (row: AddressData) => {
         <!--  -->
         <el-table-column prop="name" label="名称" width="220" />
         <!--  -->
-        <el-table-column prop="intor" label="简介" />
+        <el-table-column prop="intro" label="简介" />
         <!--  -->
         <el-table-column label="是否启用">
           <template #default="{ row }">
@@ -128,7 +128,7 @@ const switchRowIsLook = async (row: AddressData) => {
           <el-input v-model="addressParames.name"></el-input>
         </el-form-item>
         <el-form-item label="简介："
-          ><el-input v-model="addressParames.intor"></el-input
+          ><el-input v-model="addressParames.intro"></el-input
         ></el-form-item>
         <el-form-item label="是否展示："
           ><el-switch

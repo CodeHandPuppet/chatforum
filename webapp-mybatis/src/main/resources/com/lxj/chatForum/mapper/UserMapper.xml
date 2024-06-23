@@ -6,7 +6,8 @@
 
     <sql id="userInfoSql">
         id
-        ,username,nickname,avatar,signature,type,level,likes,collect,forum_number,(concat('/userHome?id=',id))as homeLink,address
+        ,username,nickname,avatar,signature,type,level,likes,collect,forum_number,
+        (concat('/userHome?id=',id))as homeLink,address
     </sql>
 
 

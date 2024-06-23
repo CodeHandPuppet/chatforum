@@ -1,8 +1,8 @@
 // 定义 Notification 接口
 export interface Notification {
     id: number;
-    sender_id: number;
-    receiver_id: number;
+    senderId: number;
+    receiverId: number;
     type: 'forum' | 'message' | 'add' | 'delete';
 }
 
@@ -21,7 +21,7 @@ export interface User {
 // 定义 Group 接口
 export interface Group {
     id: number;
-    group_name: string;
+    groupName: string;
     owner_id: number;
     avatar: string;
     signature: string
@@ -30,25 +30,25 @@ export interface Group {
 // 定义 User_message 接口
 export interface UserMessage {
     id: number;
-    sender_id: number;
-    receiver_id: number;
+    senderId: number;
+    receiverId: number;
     content: string;
-    send_time: string;
+    sendTime: string;
 }
 
 // 定义 Group_message 接口
 export interface GroupMessage {
     id: number;
-    sender_id: number;
+    senderId: number;
     group_id: number;
     content: string;
-    send_time: string;
+    sendTime: string;
 }
 
 // 定义 Forum 接口
 export interface Forum {
     id: number;
-    sender_id: number;
+    senderId: number;
     like: number;
     content: string;
     collect: number;
@@ -62,11 +62,11 @@ export interface Forum {
 export interface groupMember {
     id: number;
     group_id: number;
-    user_id: number;
+    uid: number;
 }
 // friendsList
 export interface FriendsList {
     id: number;
-    user_id: number;
-    friend_id: number;
+    uid: number;
+    friendId: number;
 }

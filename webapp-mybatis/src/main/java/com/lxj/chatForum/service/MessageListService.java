@@ -1,14 +1,22 @@
 package com.lxj.chatForum.service;
 
+import com.lxj.chatForum.pojo.FriendsListPojo;
+import com.lxj.chatForum.pojo.MessagePojo;
+
+import java.util.List;
+import java.util.Map;
+
 public interface MessageListService {
-    String getFriends(String token);
 
-    String getChatList(String token);
+    Map<String, Object> getFriends(String token);
 
-    String getOneMessageArr(String json);
+    Map<String, Object> getChatList(String token);
 
-    String toSendMessage(String json);
+    List<MessagePojo> getOneMessageArr(MessagePojo message);
 
-    String toAddFriend(String json);
-    String toEditAppellation(String json);
+    void toSendMessage(MessagePojo message);
+
+    void toAddFriend(FriendsListPojo friendsListPojo);
+
+    void toEditAppellation(FriendsListPojo friendsListPojo);
 }

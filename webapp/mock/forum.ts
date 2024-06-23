@@ -12,8 +12,8 @@
 //     //     url: '/api/forum/send',
 //     //     method: 'post',
 //     //     response: ({ body }) => {
-//     //         let { content, sender_id } = body
-//     //         forum.push({ id: forum.length + 1, sender_id, content, like: 0, collect: 0 ,});
+//     //         let { content, senderId } = body
+//     //         forum.push({ id: forum.length + 1, senderId, content, like: 0, collect: 0 ,});
 //     //         return {
 //     //             code: 200,
 //     //             message: 'ok',

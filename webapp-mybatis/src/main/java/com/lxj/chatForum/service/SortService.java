@@ -1,11 +1,17 @@
 package com.lxj.chatForum.service;
 
+import com.lxj.chatForum.pojo.SortPojo;
+
+import java.util.List;
+
 public interface SortService {
-    String getAll();
 
-    String toEditSort(String json);
+    List<SortPojo> getAll();
 
-    String toAddSort(String json);
+    void toEditSort(SortPojo sortPojo);
 
-    String toDeleteSort(String json);
+    void toAddSort(SortPojo sortPojo);
+
+    void toDeleteSort(String id);
+
 }

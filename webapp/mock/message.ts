@@ -48,7 +48,7 @@
 //             }
 //             else if (type == 'group') {
 //                 messageArr = getChatHistoryByGroupIDs(id);
-//                 const memberIds = messageArr.map(member => member.sender_id);
+//                 const memberIds = messageArr.map(member => member.senderId);
 //                 groupMemberInfo = users.filter(user => memberIds.includes(user.id)).map(item => {
 //                     const { avatar, nickname: name, id, signature } = item;
 //                     return {
@@ -88,9 +88,9 @@
 
 //     // 遍历 userMessages 数组
 //     for (const message of userMessages) {
-//         if (message.sender_id === user.id) {
+//         if (message.senderId === user.id) {
 //             // 找到发送者为该用户的消息
-//             const friend = users.find((u) => u.id === message.receiver_id);
+//             const friend = users.find((u) => u.id === message.receiverId);
 //             if (friend) {
 //                 // 找到接收者的好友用户对象
 //                 const { id, nickname, avatar, signature } = friend;
@@ -98,9 +98,9 @@
 //                 if (!temp) friendInfo.push({ id, name: nickname, avatar, signature });
 //             }
 //         }
-//         if (message.receiver_id === user.id) {
+//         if (message.receiverId === user.id) {
 //             // 找到接收者为该用户的消息
-//             const friend = users.find((u) => u.id === message.sender_id);
+//             const friend = users.find((u) => u.id === message.senderId);
 //             if (friend) {
 //                 // 找到接收者的好友用户对象
 //                 const { id, nickname, avatar, signature } = friend;
@@ -130,7 +130,7 @@
 //             const group = groups.find((u) => u.id === message.group_id);
 //             if (group) {
 //                 // 找到接收者的好友用户对象
-//                 const { id, group_name: name, avatar, signature } = group;
+//                 const { id, groupName: name, avatar, signature } = group;
 //                 const temp = groupInfo.find(item => item.id === id);
 //                 if (!temp) groupInfo.push({ id, name: name, avatar, signature });
 //             }
@@ -149,7 +149,7 @@
 //     }
 
 //     const userGroups = groupMembers
-//         .filter((member) => member.user_id === user.id)
+//         .filter((member) => member.uid === user.id)
 //         .map((member) => member.group_id);
 
 //     return userGroups;
@@ -158,8 +158,8 @@
 // const getChatHistoryByUserIDs = (userID1, userID2) => {
 //     const chatHistory = userMessages.filter(
 //         (message) =>
-//             (message.sender_id === userID1 && message.receiver_id === userID2) ||
-//             (message.sender_id === userID2 && message.receiver_id === userID1)
+//             (message.senderId === userID1 && message.receiverId === userID2) ||
+//             (message.senderId === userID2 && message.receiverId === userID1)
 //     )
 
 //     return chatHistory;

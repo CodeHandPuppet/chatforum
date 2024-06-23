@@ -45,7 +45,7 @@ const onButtonClick = (value: SortData, event: any) => {
       <div class="nickname">{{ userStore.nickname }}</div>
       <div class="meta">
         <div>
-          <section><span>文章</span>{{ userStore.forum_number }}</section>
+          <section><span>文章</span>{{ userStore.forumNumber }}</section>
         </div>
         <div>
           <section><span>获赞</span>{{ userStore.likes }}</section>
@@ -95,7 +95,7 @@ const onButtonClick = (value: SortData, event: any) => {
       >
         <span class="pl-1">速览</span>
         <span class="text-4xl" style="flex: 2">{{ sort.sortName }}</span>
-        <span class="pl-1">{{ sort.intor }}</span>
+        <span class="pl-1">{{ sort.intro }}</span>
       </div>
     </template>
   </div>

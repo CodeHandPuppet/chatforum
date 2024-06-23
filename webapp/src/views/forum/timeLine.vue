@@ -20,7 +20,7 @@ const toArticle = (value: number) => {
       :key="index"
       type="primary"
       :hollow="true"
-      :timestamp="forum?.create_time"
+      :timestamp="forum?.createTime"
     >
       <span class="cursor-pointer" @click="toArticle(forum.id as number)">{{
         forum.title

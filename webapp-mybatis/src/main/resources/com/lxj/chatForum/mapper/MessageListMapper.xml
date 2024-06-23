@@ -16,13 +16,14 @@
             <result property="level" column="level"/>
             <result property="likes" column="likes"/>
             <result property="collect" column="collect"/>
-            <result property="forum_number" column="forum_number"/>
+            <result property="forumNumber" column="forum_number"/>
         </association>
     </resultMap>
 
     <sql id="userInfoSql">
         id
-        ,username,nickname,avatar,signature,type,level,likes,collect,forum_number,(concat('/userHome?id=',id))as homeLink,address
+        ,username,nickname,avatar,signature,type,level,likes,collect,forum_number,
+        (concat('/userHome?id=',id)) as homeLink,address
     </sql>
     <!--    //    获取消息页  朋友列表-->
     <select id="getFriendMessageList" resultType="userPojo">
@@ -63,26 +64,26 @@
     <!--    //获取两个人的聊天对话-->
     <select id="getOneMessageArr" resultType="messagePojo">
         select *
-        from usermessage
+        from user_message
         where (uid = #{uid} and receiver_id = #{senderId})
            or (uid = #{senderId} and receiver_id = #{uid})
         ORDER BY send_time
     </select>
     <!--    //发送某个消息-->
     <insert id="insertMessage">
-        insert into chatforum.usermessage (uid, receiver_id, content)
-        values (#{uid}, #{receiver_id}, #{content})
+        insert into chat_forum.user_message (uid, receiver_id, content)
+        values (#{uid}, #{receiverId}, #{content})
     </insert>
     <!--    //  添加一位朋友-->
     <insert id="insertFriend">
-        insert into chatforum.friends_list (uid, friend_id)
+        insert into chat_forum.friends_list (uid, friend_id)
         values (#{uid}, #{friendId})
     </insert>
     <!--    //更新朋友的称呼-->
     <update id="updateFriend">
-        update chatforum.friends_list
+        update chat_forum.friends_list
         set appellation=#{appellation}
         where uid = #{uid}
-          and friend_id = #{friend_id}
+          and friend_id = #{friendId}
     </update>
 </mapper>

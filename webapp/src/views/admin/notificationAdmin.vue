@@ -48,7 +48,7 @@ const addNotification = () => {
   notificaParames.value.content = "";
   notificaParames.value.id = "";
   notificaParames.value.isLook = true;
-  notificaParames.value.sender_id = userStore.id;
+  notificaParames.value.senderId = userStore.id;
   drawer.value = true;
 };
 //
@@ -56,7 +56,7 @@ const editNotification = (row: NotificationData) => {
   notificaParames.value.content = row.content;
   notificaParames.value.id = row.id;
   notificaParames.value.isLook = row.isLook;
-  notificaParames.value.sender_id = row.sender_id;
+  notificaParames.value.senderId = row.senderId;
   drawer.value = true;
 };
 const removeNotification = async (row: NotificationData) => {
@@ -110,7 +110,7 @@ const submitNotification = async () => {
         <!--  -->
         <el-table-column prop="content" label="内容" />
         <!--  -->
-        <!-- <el-table-column prop="intor" label="简介" /> -->
+        <!-- <el-table-column prop="intro" label="简介" /> -->
         <!--  -->
         <el-table-column prop="isLook" label="是否置顶展示">
           <template #default="{ row }">
@@ -125,7 +125,7 @@ const submitNotification = async () => {
           </template>
         </el-table-column>
         <!--  -->
-        <el-table-column prop="update_time" sortable label="更新时间" />
+        <el-table-column prop="updateTime" sortable label="更新时间" />
         <!--  -->
         <el-table-column label="操作">
           <template #default="{ row }">

@@ -105,7 +105,7 @@ const clickLikeOrCollect = async (type: "like" | "collect") => {
           <!-- 发布日期 -->
           <span
             ><i class="fas fa-calendar-check mr-2 text-cyan-400"></i
-            >{{ forumData.create_time }}</span
+            >{{ forumData.createTime }}</span
           ><span>.</span>
           <!-- 热度 -->
           <span>

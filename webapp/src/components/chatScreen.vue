@@ -16,15 +16,15 @@ const router = useRouter();
 const userStore = useUserStore();
 let inputParmas = reactive<UserMessageData>({
   content: "",
-  send_time: "",
-  receiver_id: props.messageInfo.baseInfo.id as string,
+  sendTime: "",
+  receiverId: props.messageInfo.baseInfo.id as string,
   uid: userStore.id as string,
 });
 // 填入对象
-inputParmas.receiver_id = props.messageInfo.baseInfo.id as string;
+inputParmas.receiverId = props.messageInfo.baseInfo.id as string;
 const sendInputMessage = async () => {
   if (!inputParmas.content) return;
-  inputParmas.send_time = newTimeDate();
+  inputParmas.sendTime = newTimeDate();
   // 做请求
   const result = await sendMessageRequest(inputParmas);
   if (result.code == 200) {

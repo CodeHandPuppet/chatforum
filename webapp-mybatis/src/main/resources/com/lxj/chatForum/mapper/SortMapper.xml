@@ -12,12 +12,19 @@
 
         <!--插入某个分类-->
         <insert id="insert" >
-            insert into sort(sortName,intro,uid,isLook) values (#{sortName},#{intro},#{uid},#{isLook})
+            insert into
+                sort(sort_name,intro,uid,isLook)
+            values
+                (#{sortName},#{intro},#{uid},#{isLook})
         </insert>
 
         <!--更新某个分类-->
         <update id="update">
-            update sort set sortName=#{sortName},intro=#{intro},uid=#{uid},isLook=#{isLook} where id = #{id}
+            update
+                sort
+            set
+                sortName=#{sort_name},intro=#{intro},uid=#{uid},is_look=#{isLook}
+            where id = #{id}
         </update>
 
         <!-- 删除某个分类-->
@@ -27,6 +34,6 @@
 
         <!--根据id获取分类-->
         <select id="getSortById" resultType="sortPojo">
-        select id,sortName,isLook from sort where id=#{id}
+        select id,sort_name,is_look from sort where id=#{id}
         </select>
 </mapper>

@@ -8,24 +8,24 @@
     <delete id="deleteCollect">
         delete
         from forum_collect
-        where user_id = #{uid}
+        where uid = #{uid}
           and forum_id = #{forumId}
     </delete>
     <!-- 插入收藏-->
     <insert id="insertCollect">
-        insert into forum_collect(user_id, forum_id)
+        insert into forum_collect(uid, forum_id)
         values (#{uid}, #{forumId})
     </insert>
     <!-- 删除 喜欢-->
     <delete id="deleteLike">
         delete
         from forum_like
-        where user_id = #{uid}
+        where uid = #{uid}
           and forum_id = #{forumId}
     </delete>
     <!--/插入喜欢-->
     <insert id="insertLike">
-        insert into forum_like(user_id, forum_id)
+        insert into forum_like(uid, forum_id)
         values (#{uid}, #{forumId})
     </insert>
 
@@ -33,13 +33,13 @@
     <select id="getAllLikeForumId">
         select forum_id
         from forum_like
-        where user_id = #{uid}
+        where uid = #{uid}
     </select>
 
     <!--收藏文章数组  用来收藏展示用的-->
     <select id="getAllCollectForumId">
         select forum_id
         from forum_collect
-        where user_id = #{uid}
+        where uid = #{uid}
     </select>
 </mapper>
