@@ -6,6 +6,7 @@ import {
   removeForumCollectRequest,
   removeForumLikeRequest,
 } from "@/api/forumLikeOrCollect";
+
 import { VisForum } from "@/api/type";
 import { useSortStore } from "@/store/sortStore";
 import { useUserStore } from "@/store/userStore";
@@ -13,6 +14,7 @@ import { ForumData, SortData } from "@/type/websiteDataType";
 import useStore from "element-plus/es/components/table/src/store";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 const sortStore = useSortStore();
 const props = defineProps({
